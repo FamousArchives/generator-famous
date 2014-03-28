@@ -42,7 +42,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.mkdir('app/templates');
 
     this.copy('_package.json', 'package.json');
-    this.copy('_bower.json', 'bower.json');
+    this.copy('_Gruntfile.js', 'Gruntfile.js');
   },
 
   projectfiles: function () {
