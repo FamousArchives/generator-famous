@@ -28,7 +28,6 @@ To install generator-famous from npm, clone this repo then link:
 ```
 $ git clone git@github.com:Famous/generator-famous.git
 $ cd generator-famous
-$ npm install
 $ npm link
 ```
 
