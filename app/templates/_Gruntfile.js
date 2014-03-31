@@ -18,7 +18,7 @@ module.exports = function (grunt) {
       // Configurable paths
       app: 'app',
       dist: 'dist',
-      famousBranch: 'develop'
+      famousBranch: '0.0.4'
     },
     shell: {
       famous: {
