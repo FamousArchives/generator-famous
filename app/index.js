@@ -40,6 +40,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
   app: function () {
     this.mkdir('app');
     this.mkdir('app/css');
+    this.mkdir('app/images');
     this.mkdir('app/src');
     this.mkdir('app/src/lib');
 
@@ -48,6 +49,8 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.copy('_bower.json', 'bower.json');
     this.copy('_Gruntfile.js', 'Gruntfile.js');
     this.copy('_index.html', 'app/index.html');
+    
+    this.copy('images/_famous_symbol_transparent.png', 'app/images/famous_symbol_transparent.png');
     
     this.copy('css/_app.css', 'app/css/app.css');
     
