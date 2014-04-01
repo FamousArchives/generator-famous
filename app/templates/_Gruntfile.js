@@ -23,8 +23,8 @@ module.exports = function (grunt) {
     shell: {
       famous: {
         command: [
-          'git clone -b <%= config.famousBranch %> git@github.com:Famous/famous.git <%= config.app %>/src/famous',
-          'cd <%= config.app %>/src/famous',
+          'git clone -b <%= config.famousBranch %> git@github.com:Famous/famous.git <%= config.app %>/lib/famous',
+          'cd <%= config.app %>/lib/famous',
           'git submodule update --init'
         ].join('&&')
       },
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
     watch: {
       bower: {
         files: ['bower.json'],
-        tasks: ['bowerInstall']
+        tasks: ['bower']
       },
       js: {
         files: ['<%= config.app %>/src/{,*/}*.js'],
@@ -64,7 +64,6 @@ module.exports = function (grunt) {
         ]
       }
     },
-    
     // The actual grunt server settings
     connect: {
       options: {
@@ -107,11 +106,10 @@ module.exports = function (grunt) {
       server: '.tmp'
     },
     
-    // Automatically inject Bower components into the HTML file
-    bowerInstall: {
-      app: {
-        src: ['<%= config.app %>/index.html'],
-        ignorePath: '<%= config.app %>/'
+    // Automagically wire-up installed Bower components into your RequireJS config
+    bower: {
+      raget: {
+        rjsConfig: '<%= config.app %>/src/requireConfig.js'
       }
     },
     
@@ -121,11 +119,27 @@ module.exports = function (grunt) {
           src: [
             '<%= config.dist %>/src/{,*/}*.js',
             '<%= config.dist %>/css/{,*/}*.css',
-            '<%= config.dist %>/images/{,*/}*.*',
+            // '<%= config.dist %>/images/{,*/}*.*',
             '<%= config.dist %>/css/fonts/{,*/}*.*',
             '<%= config.dist %>/*.{ico,png}'
           ]
         }
+      }
+    },
+    
+    processhtml: {
+      dev: {
+        files: {
+          '<%= config.dist %>/index.html': ['<%= config.app %>/index.html']
+        }
+      },
+      dist: {
+        files: {
+          '<%= config.dist %>/index.html': ['<%= config.app %>/index.html']
+        }
+      },
+      options: {
+        commentMarker: 'process'
       }
     },
     
@@ -137,7 +151,7 @@ module.exports = function (grunt) {
       options: {
         dest: '<%= config.dist %>'
       },
-      html: '<%= config.app %>/index.html'
+      html: '<%= config.dist %>/index.html'
     },
     
     // Performs reqrite based on rev and the useminPrepare configuration
@@ -147,6 +161,27 @@ module.exports = function (grunt) {
       },
       html: ['<%= config.dist %>/{,*/}*.html'],
       css: ['<%= config.dist %>/css/{,*/}*.css']
+    },
+    
+    htmlmin: {
+      dist: {
+        options: {
+          collapseBooleanAttributes: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true,
+          removeCommentsFromCDATA: true,
+          removeEmptyAttributes: true,
+          removeOptionalTags: true,
+          removeRedundantAttributes: true,
+          useShortDoctype: true
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= config.dist %>',
+          src: '{,*/}*.html',
+          dest: '<%= config.dist %>'
+        }]
+      }
     },
     
     // Copies remaining files to places other tasks can use
@@ -161,19 +196,11 @@ module.exports = function (grunt) {
             '**/**.{ico,png,txt,jpg}',
             '.htaccess',
             'images/{,*/}*.webp',
-            '{,*/}*.html',
+            // '{,*/}*.html',
             'styles/fonts/{,*/}*.*',
-            'bower_components/requirejs/require.js',
-            'src/famous/**/**.css'
+            'lib/famous/**/**.css'
           ]
         }]
-      },
-      styles: {
-        expand: true,
-        dot: true,
-        cwd: '<%= config.app %>/css',
-        dest: '.tmp/css/',
-        src: '{,*/}*.css'
       }
     },
     requirejs: {
@@ -186,8 +213,12 @@ module.exports = function (grunt) {
             }
           },
           baseUrl: '<%= config.app %>/src',
+          mainConfigFile: '<%= config.app %>/src/requireConfig.js',
+          name: 'almond',
+          include: 'main',
+          insertRequire: ['main'],
           out: '<%= config.dist %>/src/main.js',
-          name: 'main'
+          wrap: true
         }
       }
     }
@@ -200,6 +231,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'processhtml:dev',
       'connect:livereload',
       'watch'
     ]);
@@ -207,15 +239,16 @@ module.exports = function (grunt) {
   
   grunt.registerTask('build', [
     'clean:dist',
+    'processhtml:dist',
     'useminPrepare',
-    'copy:styles',
+    'requirejs',
     'concat',
     'cssmin',
     'uglify',
     'copy:dist',
     'rev',
     'usemin',
-    'requirejs'
+    'htmlmin'
   ]);
 
   grunt.registerTask('default', [

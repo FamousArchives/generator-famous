@@ -51,6 +51,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
     
     this.copy('css/_app.css', 'app/css/app.css');
     
+    this.copy('src/_requireConfig.js', 'app/src/requireConfig.js');
     this.copy('src/_main.js', 'app/src/main.js');
   },
 
