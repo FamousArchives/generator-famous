@@ -45,17 +45,13 @@ var FamousGenerator = yeoman.generators.Base.extend({
 
     this.copy('_README.md', 'README.md');
     this.copy('_package.json', 'package.json');
+    this.copy('_bower.json', 'bower.json');
     this.copy('_Gruntfile.js', 'Gruntfile.js');
     this.copy('_index.html', 'app/index.html');
     
     this.copy('css/_app.css', 'app/css/app.css');
     
     this.copy('src/_main.js', 'app/src/main.js');
-    
-    this.copy('src/lib/_classList.js', 'app/src/lib/classList.js');
-    this.copy('src/lib/_functionPrototypeBind.js', 'app/src/lib/functionPrototypeBind.js');
-    this.copy('src/lib/_requestAnimationFrame.js', 'app/src/lib/requestAnimationFrame.js');
-    this.copy('src/lib/_require.js', 'app/src/lib/require.js');
   },
 
   projectfiles: function () {

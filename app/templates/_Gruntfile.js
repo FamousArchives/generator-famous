@@ -34,6 +34,10 @@ module.exports = function (grunt) {
     },
     // Watches files for changes and runs tasks based on the changed files
     watch: {
+      bower: {
+        files: ['bower.json'],
+        tasks: ['bowerInstall']
+      },
       js: {
         files: ['<%= config.app %>/src/{,*/}*.js'],
         options: {
@@ -103,6 +107,48 @@ module.exports = function (grunt) {
       server: '.tmp'
     },
     
+    // Automatically inject Bower components into the HTML file
+    bowerInstall: {
+      app: {
+        src: ['<%= config.app %>/index.html'],
+        ignorePath: '<%= config.app %>/'
+      }
+    },
+    
+    rev: {
+      dist: {
+        files: {
+          src: [
+            '<%= config.dist %>/src/{,*/}*.js',
+            '<%= config.dist %>/css/{,*/}*.css',
+            '<%= config.dist %>/images/{,*/}*.*',
+            '<%= config.dist %>/css/fonts/{,*/}*.*',
+            '<%= config.dist %>/*.{ico,png}'
+          ]
+        }
+      }
+    },
+    
+    // Reads HTML for usemin blocks to enable smart builds that automatically
+    // concat, uglify and revision files. Creates configurations in memory so
+    // additional tasks can operate on them
+    
+    useminPrepare: {
+      options: {
+        dest: '<%= config.dist %>'
+      },
+      html: '<%= config.app %>/index.html'
+    },
+    
+    // Performs reqrite based on rev and the useminPrepare configuration
+    usemin: {
+      options: {
+        assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images']
+      },
+      html: ['<%= config.dist %>/{,*/}*.html'],
+      css: ['<%= config.dist %>/css/{,*/}*.css']
+    },
+    
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
@@ -117,10 +163,17 @@ module.exports = function (grunt) {
             'images/{,*/}*.webp',
             '{,*/}*.html',
             'styles/fonts/{,*/}*.*',
-            'src/lib/**/**.js',
-            '**/**.css'
+            'bower_components/requirejs/require.js',
+            'src/famous/**/**.css'
           ]
         }]
+      },
+      styles: {
+        expand: true,
+        dot: true,
+        cwd: '<%= config.app %>/css',
+        dest: '.tmp/css/',
+        src: '{,*/}*.css'
       }
     },
     requirejs: {
@@ -154,7 +207,14 @@ module.exports = function (grunt) {
   
   grunt.registerTask('build', [
     'clean:dist',
+    'useminPrepare',
+    'copy:styles',
+    'concat',
+    'cssmin',
+    'uglify',
     'copy:dist',
+    'rev',
+    'usemin',
     'requirejs'
   ]);
 
