@@ -2,7 +2,7 @@
   "name": "generator-famous",
   "version": "0.0.0",
   "description": "Yeoman generator",
-  "license": "MIT",
+  "license": "MPL v2",
   "main": "app/index.js",
   "repository": "thealphanerd/generator-famous",
   "author": {
