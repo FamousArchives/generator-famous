@@ -1,6 +1,19 @@
 {
-  "name": "famo.us-base",
-  "version": "0.0.1",
+  "name": "<%= _.slugify(projectName) %>",
+  "description": "<%= _.capitalize(projectDesc) %>.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/<%= authorLogin %>/<%= _.slugify(projectName) %>",
+  "author": {
+    "name": "<%= authorName %>",
+    "url": "http://github.com/<%= authorLogin %>/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/<%= authorLogin %>/<%= _.slugify(projectName) %>.git"
+  },
+  "bugs": {
+    "url": "https://github.com/<%= authorLogin %>/<%= _.slugify(projectName) %>/issues"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },

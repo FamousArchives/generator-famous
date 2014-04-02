@@ -8,10 +8,24 @@ var chalk = require('chalk');
 var FamousGenerator = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = require('../package.json');
+    this.description = this.pkg.description;
 
     this.on('end', function () {
       if (!this.options['skip-install']) {
-        this.installDependencies();
+        this.installDependencies({
+          skipInstall: this.options['skip-install'] || this.options['s'],
+          skipMessage: this.options['skip-welcome-message'] || this.options['w']
+        });
+      }
+    });
+    this.config.defaults({
+      projectName: 'Famo.us Base',
+      projectDesc: 'Seed project to get started with Famo.us',
+      authorLogin: 'famous',
+      author: {
+        name: this.user.git.username || process.env.user || process.env.username,
+        login: 'famous',
+        email: this.user.git.email
       }
     });
   },
@@ -20,18 +34,36 @@ var FamousGenerator = yeoman.generators.Base.extend({
     var done = this.async();
 
     // have Yeoman greet the user
-    this.log(this.yeoman);
-
-    // replace it with a short and sweet description of your generator
-    this.log(chalk.magenta('You\'re using the fantastic Famo.us generator.'));
+    if (!this.options['skip-welcome-message']) {
+      this.log(this.yeoman);
+      // replace it with a short and sweet description of your generator
+      this.log(chalk.magenta('You\'re using the fantastic Famo.us generator.'));
+    }
 
     var prompts = [{
+      type: 'input',
       name: 'projectName',
-      message: 'What would you like to call your project?'
+      message: 'What would you like to call your project?',
+      default: this.appname || this.config.get('projectName')
+    }, {
+      type: 'input',
+      name: 'projectDesc',
+      message: 'Your project description',
+      default: this.config.get('projectDesc')
+    }, {
+      type : 'input',
+      name : 'authorLogin',
+      message : 'Would you mind telling me your username on Github?',
+      default : this.config.get('author').login || this.config.get('authorLogin')
     }];
 
     this.prompt(prompts, function (props) {
-      this.projectName = props.projectName;
+      this.projectName = props.projectName || this.config.get('projectName');
+      this.projectDesc = props.projectDesc || this.config.get('projectDesc');
+      this.authorLogin = props.authorLogin || this.config.get('authorLogin');
+      
+      this.authorName  = this.config.get('author').name;
+      this.authorEmail = this.config.get('author').email;
 
       done();
     }.bind(this));
@@ -44,18 +76,18 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.mkdir('app/content/images');
     this.mkdir('app/src');
 
-    this.copy('_README.md', 'README.md');
-    this.copy('_package.json', 'package.json');
-    this.copy('_bower.json', 'bower.json');
+    this.template('README.md', 'README.md');
+    this.template('_package.json', 'package.json');
+    this.template('_bower.json', 'bower.json');
     this.copy('_Gruntfile.js', 'Gruntfile.js');
-    this.copy('_index.html', 'app/index.html');
+    this.template('_index.html', 'app/index.html');
     
     this.copy('images/_famous_symbol_transparent.png', 'app/content/images/famous_symbol_transparent.png');
     
     this.copy('styles/_app.css', 'app/styles/app.css');
     
-    this.copy('src/_requireConfig.js', 'app/src/requireConfig.js');
-    this.copy('src/_main.js', 'app/src/main.js');
+    this.template('src/_requireConfig.js', 'app/src/requireConfig.js');
+    this.template('src/_main.js', 'app/src/main.js');
   },
 
   projectfiles: function () {
