@@ -39,10 +39,10 @@ var FamousGenerator = yeoman.generators.Base.extend({
 
   app: function () {
     this.mkdir('app');
-    this.mkdir('app/css');
-    this.mkdir('app/images');
+    this.mkdir('app/style');
+    this.mkdir('app/content');
+    this.mkdir('app/content/images');
     this.mkdir('app/src');
-    this.mkdir('app/src/lib');
 
     this.copy('_README.md', 'README.md');
     this.copy('_package.json', 'package.json');
@@ -50,9 +50,9 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.copy('_Gruntfile.js', 'Gruntfile.js');
     this.copy('_index.html', 'app/index.html');
     
-    this.copy('images/_famous_symbol_transparent.png', 'app/images/famous_symbol_transparent.png');
+    this.copy('images/_famous_symbol_transparent.png', 'app/content/images/famous_symbol_transparent.png');
     
-    this.copy('css/_app.css', 'app/css/app.css');
+    this.copy('styles/_app.css', 'app/styles/app.css');
     
     this.copy('src/_requireConfig.js', 'app/src/requireConfig.js');
     this.copy('src/_main.js', 'app/src/main.js');
@@ -61,7 +61,8 @@ var FamousGenerator = yeoman.generators.Base.extend({
   projectfiles: function () {
     this.copy('editorconfig', '.editorconfig');
     this.copy('bowerrc', '.bowerrc');
-    this.copy('_eslint.json', 'eslint.json');
+    this.copy('eslint.json', '.eslint.json');
+    this.copy('jscs.json', '.jscs.json');
   }
 });
 

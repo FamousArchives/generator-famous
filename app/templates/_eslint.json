@@ -1,8 +1,0 @@
-{
-  "env": {
-    "browser": true
-  },
-  "rules": {
-    "no-unused-vars": 1
-  }
-}

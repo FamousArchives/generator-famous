@@ -25,7 +25,7 @@
     "grunt-processhtml": "^0.3.0",
     "grunt-contrib-htmlmin": "^0.2.0",
     "grunt-eslint": "^0.3.2",
-    "grunt-contrib-jscs": "^0.1.7"
+    "grunt-jscs-checker": "^0.4.1"
   },
   "scripts": {
     "postinstall": "grunt shell:famous"
