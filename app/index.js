@@ -71,7 +71,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
 
   app: function () {
     this.mkdir('app');
-    this.mkdir('app/style');
+    this.mkdir('app/styles');
     this.mkdir('app/content');
     this.mkdir('app/content/images');
     this.mkdir('app/src');
