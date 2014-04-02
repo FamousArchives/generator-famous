@@ -1,3 +1,4 @@
+/*globals require*/
 require.config({
   shim: {
 
@@ -6,7 +7,6 @@ require.config({
     famous: "../lib/famous",
     requirejs: "../lib/requirejs/require",
     almond: "../lib/almond/almond"
-    // "famous-polyfills": "../lib/famous-polyfills/index"
   }
 });
 require(["main"]);

@@ -32,6 +32,24 @@ module.exports = function (grunt) {
         stdout: true
       }
     },
+    
+    eslint: {
+      options: {
+        config: 'eslint.json'
+      },
+      target: ['<%= config.app %>/src/**/**.js']
+    },
+    
+    jscs: {
+      all: {
+        options: {
+          // Task-Specific options to go here
+        },
+        files: {
+          src: ['<%= config.app %>/src/', 'Gruntfile.js']
+        }
+      }
+    },
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
@@ -39,7 +57,8 @@ module.exports = function (grunt) {
         tasks: ['bower']
       },
       js: {
-        files: ['<%= config.app %>/src/{,*/}*.js'],
+        files: ['<%= config.app %>/src/**/**.js'],
+        tasks: ['jscs', 'eslint'],
         options: {
           livereload: true
         }
@@ -231,6 +250,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'jscs',
+      'eslint',
       'processhtml:dev',
       'connect:livereload',
       'watch'
@@ -239,6 +260,8 @@ module.exports = function (grunt) {
   
   grunt.registerTask('build', [
     'clean:dist',
+    'jscs',
+    'eslint',
     'processhtml:dist',
     'useminPrepare',
     'requirejs',
