@@ -1,0 +1,22 @@
+Description:
+    Creates a default Famo.us app
+    
+Example:
+    yo famous [--opinionated]
+    
+    This will create:
+        README.md
+        Gruntfile.js
+        bower.json
+        package.json
+        
+        .bowerrc
+        .editorconfig
+        .edlint.json
+        .jscs.json
+        
+        app/index.html
+        app/src/main.js
+        app/src/requireConfig.js
+        app/src/content/images/famous_symbol_transparent.png
+        app/src/styles/app.css
