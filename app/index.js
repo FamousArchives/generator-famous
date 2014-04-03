@@ -95,6 +95,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.copy('bowerrc', '.bowerrc');
     this.copy('eslint.json', '.eslint.json');
     this.copy('jscs.json', '.jscs.json');
+    this.copy('gitignore', '.gitignore');
   }
 });
 
