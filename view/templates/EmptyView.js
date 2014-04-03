@@ -11,16 +11,16 @@ define(function(require, exports, module) {
      * @constructor
      * @description
      */
-    
+
     function <%= filename  %>() {
         View.apply(this, arguments);
     }
 
-    <%= filename  %>.prototype = Object.create( View.prototype );
+    <%= filename  %>.prototype = Object.create(View.prototype);
     <%= filename  %>.prototype.constructor = <%= filename  %>;
 
     <%= filename  %>.DEFAULT_OPTIONS = {
-    }
+    };
 
     module.exports = <%= filename  %>;
-})
+});
