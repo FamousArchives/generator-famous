@@ -39,8 +39,5 @@
     "grunt-contrib-htmlmin": "^0.2.0",
     "grunt-eslint": "^0.3.2",
     "grunt-jscs-checker": "^0.4.1"
-  },
-  "scripts": {
-    "postinstall": "grunt shell:famous"
   }
 }
