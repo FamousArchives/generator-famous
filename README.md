@@ -31,9 +31,11 @@ $ cd generator-famous
 $ npm link
 ```
 
-Finally, initiate the generator:
+Finally, initiate the generator in an empty directory that you would like to have your project in:
 
 ```
+$ mkdir moobyApp
+$ cd moobyApp
 $ yo famous
 ```
 
@@ -43,7 +45,14 @@ Yeoman has a heart of gold. He's a person with feelings and opinions, but he's v
 
 If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
 
+###Be Aware of .yo-rc.json
+
+When this generator scaffolds out a project it generates a .yo-rc.json file.  This file allows yo to run again in the same directory without prompting you for information.  This is particularly useful if you want to update your project to be based on the latest version of generator-famous.  This can be a problem though, as yo searches up the file tree to check if there is a version of .yo-rc.json.   So if you for example accidentally ran ```yo famous``` from a directory that was not empty, you might end up leaving the .yo-rc.json in the directory above where you would like to be.  The result will be then when running yo in an empty directory afterwards your files will never end up in the folder you are expecting them to.
+
+PHEW
+
+TLDR: If ```yo famous``` is putting things in parent directories check for an orphaned .yo-rc.json
 
 ## License
 
-MIT
+MPL V2.0
