@@ -144,7 +144,7 @@ module.exports = function(grunt) {
         processhtml: {
             dev: {
                 files: {
-                    '<%= config.dist %>/index.html': ['<%= config.app %>/index.html']
+                    '.tmp/index.html': ['<%= config.app %>/index.html']
                 }
             },
             dist: {
