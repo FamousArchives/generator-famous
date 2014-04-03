@@ -7,20 +7,20 @@ define(function(require, exports, module) {
     var Engine = require('famous/core/Engine');
 
     /*
-     * @name <%= name  %>
+     * @name <%= filename  %>
      * @constructor
      * @description
      */
     
-    function <%= name  %>() {
+    function <%= filename  %>() {
         View.apply(this, arguments);
     }
 
-    <%= name  %>.prototype = Object.create( View.prototype );
-    <%= name  %>.prototype.constructor = <%= name  %>;
+    <%= filename  %>.prototype = Object.create( View.prototype );
+    <%= filename  %>.prototype.constructor = <%= filename  %>;
 
-    <%= name  %>.DEFAULT_OPTIONS = {
+    <%= filename  %>.DEFAULT_OPTIONS = {
     }
 
-    module.exports = <%= name  %>;
+    module.exports = <%= filename  %>;
 })
