@@ -1,4 +1,4 @@
-# generator-famous [![Build Status](https://secure.travis-ci.org/thealphanerd/generator-famous.png?branch=master)](https://travis-ci.org/thealphanerd/generator-famous)
+# generator-famous
 
 > [Yeoman](http://yeoman.io) generator
 
