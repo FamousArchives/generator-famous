@@ -1,0 +1,8 @@
+Description:
+    Creates a new View
+    
+Example:
+    yo famous:view MyView
+    
+    This will create:
+        app/src/views/MyView.js

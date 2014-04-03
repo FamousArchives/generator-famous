@@ -2,7 +2,7 @@ Description:
     Creates a default Famo.us app
     
 Example:
-    yo famous [--opinionated]
+    yo famous
     
     This will create:
         README.md
