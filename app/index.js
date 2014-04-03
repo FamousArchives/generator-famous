@@ -1,3 +1,8 @@
+/*
+    Inspired by https://github.com/assemble/generator-assemble/
+    which is released under an MIT license
+*/
+
 'use strict';
 var util = require('util');
 var path = require('path');
@@ -10,6 +15,16 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
     this.description = this.pkg.description;
 
+    this.option('init', {
+      alias: 'i',
+      desc: 'Force to prompt question and re-initialize of .yo-rc.json',
+      type: String,
+      defaults: false,
+      required: false
+    });
+    
+    this.init = this.options['init'] || this.options['i'] || false;
+
     this.on('end', function () {
       if (!this.options['skip-install']) {
         this.installDependencies({
@@ -18,13 +33,14 @@ var FamousGenerator = yeoman.generators.Base.extend({
         });
       }
     });
+
     this.config.defaults({
       projectName: 'Famo.us Base',
       projectDesc: 'Seed project to get started with Famo.us',
-      authorLogin: 'famous',
+      authorLogin: '',
       author: {
         name: this.user.git.username || process.env.user || process.env.username,
-        login: 'famous',
+/*        login: 'famous',*/
         email: this.user.git.email
       }
     });
@@ -39,31 +55,52 @@ var FamousGenerator = yeoman.generators.Base.extend({
       // replace it with a short and sweet description of your generator
       this.log(chalk.magenta('You\'re using the fantastic Famo.us generator.'));
     }
+    
+    var force = false;
 
-    var prompts = [{
-      type: 'input',
-      name: 'projectName',
-      message: 'What would you like to call your project?',
-      default: this.appname || this.config.get('projectName')
-    }, {
-      type: 'input',
-      name: 'projectDesc',
-      message: 'Your project description',
-      default: this.config.get('projectDesc')
-    }, {
-      type : 'input',
-      name : 'authorLogin',
-      message : 'Would you mind telling me your username on Github?',
-      default : this.config.get('author').login || this.config.get('authorLogin')
-    }];
+    if (!this.config.existed || this.init) {
+      force = true;
+    }
 
-    this.prompt(prompts, function (props) {
-      this.projectName = props.projectName || this.config.get('projectName');
-      this.projectDesc = props.projectDesc || this.config.get('projectDesc');
-      this.authorLogin = props.authorLogin || this.config.get('authorLogin');
+    var questions = [];
+    
+    if (!this.config.get('projectName') || force)  {
+      questions.push({
+        type : 'input',
+        name : 'projectName',
+        message : 'Your project name',
+        default : this.appname || this.config.get('projectName')
+      });
+    }
+
+    if (!this.config.get('projectDesc') || force) {
+      questions.push({
+        type : 'input',
+        name : 'projectDesc',
+        message : 'Your project description',
+        default : this.config.get('projectDesc')
+      });
+    }
+
+    if (!this.config.get('authorLogin') || force) {
+      questions.push({
+        type : 'input',
+        name : 'authorLogin',
+        message : 'Would you mind telling me your username on Github?',
+        default : this.config.get('author').login || this.config.get('authorLogin')
+      });
+    }
+
+    this.prompt(questions, function (answers) {
+      this.projectName = answers.projectName || this.config.get('projectName');
+      this.projectDesc = answers.projectDesc || this.config.get('projectDesc');
+      this.authorLogin = answers.authorLogin || this.config.get('authorLogin');
       
       this.authorName  = this.config.get('author').name;
       this.authorEmail = this.config.get('author').email;
+
+      //save config to .yo-rc.json
+      this.config.set(answers);
 
       done();
     }.bind(this));
