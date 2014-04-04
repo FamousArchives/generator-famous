@@ -27,7 +27,7 @@ var OpinionatedGenerator = yeoman.generators.NamedBase.extend({
       this.copy('_README_providers.md', 'app/src/providers/README.md');
     }
     else {
-      console.log(chalk.green('You didn\'t say the magic word'));
+      console.log(chalk.yellow('You didn\'t say the ' + chalk.green('magic word')));
     }
   }
 });
