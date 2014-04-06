@@ -20,19 +20,6 @@ module.exports = function(grunt) {
             dist: 'dist',
             famousBranch: '0.0.4'
         },
-        shell: {
-            famous: {
-                command: [
-                    'git clone -b <%= config.famousBranch %> git@github.com:Famous/famous.git <%= config.app %>/lib/famous',
-                    'cd <%= config.app %>/lib/famous',
-                    'git submodule update --init'
-                ].join('&&')
-            },
-            options: {
-                stdout: true
-            }
-        },
-
         eslint: {
             options: {
                 config: '.eslint.json'
