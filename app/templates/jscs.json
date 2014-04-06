@@ -1,16 +1,11 @@
 {
     "requireCurlyBraces": ["do", "try", "catch"],
     "requireSpaceAfterKeywords": ["if", "else", "for", "while", "do", "switch", "return", "try", "catch"],
-    "disallowLeftStickedOperators": ["?", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="],
-    "disallowRightStickedOperators": ["?", ":", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="],
     "disallowSpaceAfterPrefixUnaryOperators": ["++", "--", "+", "-", "~", "!"],
-    "requireSpaceBeforeBinaryOperators": ["+", "-"],
-    "requireSpaceAfterBinaryOperators": ["+", "-"],
     "requireRightStickedOperators": ["!"],
     "requireLeftStickedOperators": [","],
     "disallowKeywords": ["with"],
     "disallowMultipleLineBreaks": true,
-    "requireKeywordsOnNewLine": ["else"],
     "requireBlocksOnNewline": true,
     "disallowMixedSpacesAndTabs": true,
     "disallowTrailingWhitespace": true,
@@ -27,6 +22,5 @@
     },
     "validateQuoteMarks": "'",
     "disallowMultipleVarDecl": true,
-    "disallowSpacesInsideParentheses": true,
-    "disallowSpaceAfterObjectKeys": true
+    "disallowSpacesInsideParentheses": true
 }
