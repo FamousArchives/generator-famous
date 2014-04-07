@@ -20,11 +20,20 @@ describe('famous generator', function () {
   it('creates expected files', function (done) {
     var expected = [
       // add files you expect to exist here.
+      'README.md',
+      'package.json',
+      'bower.json',
+      'Gruntfile.js',
+      'app/index.html',
+      'app/content/images/famous_symbol_transparent.png',
+      'app/styles/app.css',
+      'app/src/requireConfig.js',
+      'app/src/main.js',
+      '.editorconfig',
+      '.bowerrc',
       '.eslintrc',
       '.jscsrc',
-      '.gitignore',
-      '.bowerrc',
-      '.editorconfig'
+      '.gitignore'
     ];
 
     helpers.mockPrompt(this.app, {
