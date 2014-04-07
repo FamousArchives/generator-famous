@@ -6,3 +6,9 @@ Example:
     
     This will create:
         app/src/views/MyView.js
+        
+    
+    yo famous:view Some/Path/OtherView
+    
+    This will create:
+        app/src/views/Some/Path/OtherView.js

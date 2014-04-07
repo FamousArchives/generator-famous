@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         },
         eslint: {
             options: {
-                config: '.eslint.json'
+                config: '.eslintrc'
             },
             target: ['<%= config.app %>/src/**/**.js']
         },
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         jscs: {
             src: ['<%= config.app %>/src/**/**.js', 'Gruntfile.js'],
             options: {
-                config: '.jscs.json'
+                config: '.jscsrc'
             }
         },
         // Watches files for changes and runs tasks based on the changed files
@@ -75,9 +75,7 @@ module.exports = function(grunt) {
             },
             livereload: {
                 options: {
-                    open: {
-                      appName: 'Google Chrome'
-                    },
+                    open: true,
                     base: [
                         '.tmp',
                         '<%= config.app %>'

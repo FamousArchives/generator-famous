@@ -1,6 +1,6 @@
-# generator-famous
+# [famous](http://famo.us) generator
 
-> [Yeoman](http://yeoman.io) generator
+> Use this [yeoman](http://yeoman.io) generator to seed your next famous project... automation ftw!
 
 
 ## Getting Started
@@ -9,7 +9,7 @@
 
 Trick question. It's not a thing. It's this guy:
 
-![](http://i.imgur.com/JHaAlBJ.png)
+![yeoman](http://i.imgur.com/JHaAlBJ.png)
 
 Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
 
@@ -19,29 +19,83 @@ Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](
 $ npm install -g yo
 ```
 
-### Yeoman Generators
+### How to Install
 
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
-
-To install generator-famous from npm, clone this repo then link:
+To install ```generator-famous``` from npm simply run the command
 
 ```
-$ git clone git@github.com:Famous/generator-famous.git
-$ cd generator-famous
-$ npm link
+$ npm install -g generator-famous
 ```
 
-Finally, initiate the generator in an empty directory that you would like to have your project in:
+Make a directory to put your app into and hop in
 
 ```
-$ mkdir moobyApp
-$ cd moobyApp
-$ yo famous
+$ mkdir moobyApp   # mkdir makes a new directory
+$ cd moobyApp      # cd is short for change directory
+$ yo famous        # Let's call the yeoman to make us famous
 ```
+
+### Features
+
+* Development server with live-reload
+* Real time linting with eslint and jscs
+* Automatically inject bower-installed vendor code into require.js
+* 
+
+### Generators
+
+Available generators:
+
+* [famous](#app) (a.k.a. [famous:app](#app))
+* [famous:view](#view)
+
+**These generators must be run from the root directory of you project**
+
+###App
+
+Description:
+    Creates a default Famo.us app
+    
+Example:
+    
+yo famous
+    
+    This will create:
+        README.md
+        Gruntfile.js
+        bower.json
+        package.json
+        
+        .bowerrc
+        .editorconfig
+        .edlint.json
+        .jscs.json
+        
+        app/index.html
+        app/src/main.js
+        app/src/requireConfig.js
+        app/src/content/images/famous_symbol_transparent.png
+        app/src/styles/app.css
+
+###View
+
+Description:
+    Creates a new View
+    
+Example:
+    
+yo famous:view MyView
+    
+    This will create:
+        app/src/views/MyView.js
+        
+    
+yo famous:view Some/Path/OtherView
+    
+    This will create:
+        app/src/views/Some/Path/OtherView.js
 
 ### Getting To Know Yeoman
-
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
 
 If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
 
@@ -52,6 +106,10 @@ When this generator scaffolds out a project it generates a .yo-rc.json file.  Th
 PHEW
 
 TLDR: If ```yo famous``` is putting things in parent directories check for an orphaned .yo-rc.json
+
+### Shout outs
+
+This generator could not have been made possible without the great work done on [generator-webapp](https://github.com/yeoman/generator-webapp), [generator-angular](https://github.com/yeoman/generator-angular/blob/master/readme.md), and [generator-assemble](https://github.com/assemble/generator-assemble)
 
 ## License
 

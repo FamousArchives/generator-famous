@@ -12,8 +12,8 @@ Example:
         
         .bowerrc
         .editorconfig
-        .edlint.json
-        .jscs.json
+        .edlintrc
+        .jscsrc
         
         app/index.html
         app/src/main.js

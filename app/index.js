@@ -4,16 +4,25 @@
 */
 
 'use strict';
+var fs = require('fs');
 var util = require('util');
 var path = require('path');
+var crypto = require('crypto');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
-
+var osenv = require('osenv');
+var rc = require('rc');
+var mixpanel = require('mixpanel').init('be66bb0b0e7cfb155efbd750607b3ef4');
 
 var FamousGenerator = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = require('../package.json');
     this.description = this.pkg.description;
+    this.home = osenv.home();
+    this.rc = rc('famous', {
+      unique_id: '',
+      noTinfoil: null
+    });
 
     this.option('init', {
       alias: 'i',
@@ -40,7 +49,6 @@ var FamousGenerator = yeoman.generators.Base.extend({
       authorLogin: '',
       author: {
         name: this.user.git.username || process.env.user || process.env.username,
-/*        login: 'famous',*/
         email: this.user.git.email
       }
     });
@@ -91,6 +99,15 @@ var FamousGenerator = yeoman.generators.Base.extend({
       });
     }
 
+    if (this.rc.noTinfoil === null) {
+      questions.push({
+        type : 'confirm',
+        name : 'noTinfoil',
+        message : 'Do you agree to our Terms of Service (https://famo.us/terms) and our Privacy Policy (http://famo.us/privacy)? ' + chalk.green('(optional)'),
+        default : true
+      });
+    }
+
     this.prompt(questions, function (answers) {
       this.projectName = answers.projectName || this.config.get('projectName');
       this.projectDesc = answers.projectDesc || this.config.get('projectDesc');
@@ -98,6 +115,26 @@ var FamousGenerator = yeoman.generators.Base.extend({
       
       this.authorName  = this.config.get('author').name;
       this.authorEmail = this.config.get('author').email;
+      
+      if (this.rc.noTinfoil === null) {
+        this.rc.noTinfoil = answers.noTinfoil;
+        if (this.rc.noTinfoil) {
+          this.rc.unique_id = crypto.createHash('sha256').update(this.authorEmail).digest('base64');
+        }
+        fs.writeFile(this.home + '/.famousrc', JSON.stringify(this.rc));
+      }
+
+      this.noTinfoil = this.rc.noTinfoil;
+
+      if (this.noTinfoil) {
+        this.unique_id = this.rc.unique_id;
+
+        mixpanel.track('yo famous', {
+          distinct_id: this.unique_id,
+          packageName: this.pkg.name,
+          pacakgeVersion: this.pkg.version
+        });
+      }
 
       //save config to .yo-rc.json
       this.config.set(answers);

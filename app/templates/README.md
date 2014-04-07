@@ -4,7 +4,7 @@
 ##Dependencies
 It is actually quite simple really
 
-First make sure you have node.js and grunt-cli installed
+First make sure you have node.js, grunt-cli, and bower installed.
 
 ```
 brew install node
@@ -14,7 +14,7 @@ npm install -g grunt-cli bower
 If you are installing node for the fist time you will most likely need to add npm to your path
 
 ```
-$ expot PATH="/usr/localshare/npm/bin:$PATH"
+$ export PATH="/usr/local/share/npm/bin:$PATH"
 ```
 
 You will probably want to add that to you .bash_profile.  I'll assume if you are using any other shell that you know what you are doing already :P
@@ -42,11 +42,6 @@ If you would like to compile your project for distribution simply run the comman
 While the default style guidelines are fairly strict, we are doing so with reason.  Famo.us is not only a framework for creating cutting edge web application, but a community project that we are all going to contribute to in the hopes of making the web better.  We truly believe that having consistent style within the community will make it easier for individuals to jump between different Famo.us modules without having to waste valuable time on processing style.
 
 While our Package Manager (which is currently in development) will enforce our style guide if you would like to publish a module, feel free to disable eslint or jscs as you see fit.  If you want to disable linting you will need to comment out lines 57 (lint during watch task), 250-251 (run when server is launched), and 260-261 (lint when building for production)
-
-##Running the Development Server
-
-Simply run ```grunt serve``` and you will start a local development server and open a browser.  Watch tasks will be running, and your browser will be automatically refreshed whenever a file in the repo changes.
-
 
 ## Contributing
 All contributions are welcome! The simplest way to show your support for this project is to **"star" it**.
