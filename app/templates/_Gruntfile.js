@@ -17,8 +17,7 @@ module.exports = function(grunt) {
         config: {
             // Configurable paths
             app: 'app',
-            dist: 'dist',
-            famousBranch: '0.0.4'
+            dist: 'dist'
         },
         eslint: {
             options: {
