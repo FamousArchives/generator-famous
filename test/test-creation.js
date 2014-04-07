@@ -20,8 +20,8 @@ describe('famous generator', function () {
   it('creates expected files', function (done) {
     var expected = [
       // add files you expect to exist here.
-      '.eslint.json',
-      '.jscs.json',
+      '.eslintrc',
+      '.jscsrc',
       '.gitignore',
       '.bowerrc',
       '.editorconfig'

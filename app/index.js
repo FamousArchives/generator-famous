@@ -130,8 +130,8 @@ var FamousGenerator = yeoman.generators.Base.extend({
   projectfiles: function () {
     this.copy('editorconfig', '.editorconfig');
     this.copy('bowerrc', '.bowerrc');
-    this.copy('eslint.json', '.eslint.json');
-    this.copy('jscs.json', '.jscs.json');
+    this.copy('eslint.json', '.eslintrc');
+    this.copy('jscs.json', '.jscsrc');
     this.copy('gitignore', '.gitignore');
   }
 });
