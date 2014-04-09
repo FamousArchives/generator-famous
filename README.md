@@ -1,6 +1,6 @@
-# [famous](http://famo.us) generator
+# generator-[famous](http://famo.us)
 
-> Use this [yeoman](http://yeoman.io) generator to seed your next famous project... automation ftw!
+> Use this [yeoman](http://yeoman.io) generator to seed your next Famo.us project... automation ftw!
 
 
 ## Getting Started
@@ -39,8 +39,9 @@ $ yo famous        # Let's call the yeoman to make us famous
 
 * Development server with live-reload
 * Real time linting with eslint and jscs
-* Automatically inject bower-installed vendor code into require.js
-* 
+* Automatically inject bower-installed vendor code into require.js config
+* All the dot files!
+* A single command to prepare your project for production
 
 ### Generators
 
