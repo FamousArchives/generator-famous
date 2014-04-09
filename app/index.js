@@ -120,6 +120,11 @@ var FamousGenerator = yeoman.generators.Base.extend({
         this.rc.noTinfoil = answers.noTinfoil;
         if (this.rc.noTinfoil) {
           this.rc.unique_id = crypto.createHash('sha256').update(this.authorEmail).digest('base64');
+          mixpanel.track('initialization', {
+            distinct_id: this.rc.unique_id,
+            packageName: this.pkg.name,
+            pacakgeVersion: this.pkg.version
+          });
         }
         fs.writeFile(this.home + '/.famousrc', JSON.stringify(this.rc));
       }
