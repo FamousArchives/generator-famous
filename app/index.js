@@ -12,7 +12,7 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var osenv = require('osenv');
 var rc = require('rc');
-var mixpanel = require('mixpanel').init('be66bb0b0e7cfb155efbd750607b3ef4');
+var mixpanel = require('mixpanel').init('1ca6a3146db8e6b46af00d0ce399260e ');
 
 var FamousGenerator = yeoman.generators.Base.extend({
   init: function () {
