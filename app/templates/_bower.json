@@ -27,7 +27,7 @@
     "requirejs": "~2.1.11",
     "almond": "~0.2.9",
     "famous-polyfills": "git@github.com:Famous/polyfills.git",
-    "famous": "git@github.com:Famous/famous.git#v0_1_0"
+    "famous": "git@github.com:Famous/famous.git#v0_1_1"
   },
   "scripts": {
     "postinstall": "grunt bower"
