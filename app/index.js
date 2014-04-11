@@ -108,7 +108,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
       questions.push({
         type : 'confirm',
         name : 'noTinfoil',
-        message : 'Do you agree to our Terms of Service (https://famo.us/terms) and our Privacy Policy (http://famo.us/privacy)? ' + chalk.green('(optional)'),
+        message : chalk.green('(optional)') + ' Do you agree to our Terms of Service (https://famo.us/terms) and our Privacy Policy (http://famo.us/privacy)?',
         default : true
       });
     }
