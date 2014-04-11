@@ -5,17 +5,22 @@
 
 'use strict';
 var fs = require('fs');
-var util = require('util');
-var path = require('path');
+// var util = require('util');
+// var path = require('path');
 var crypto = require('crypto');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var osenv = require('osenv');
 var rc = require('rc');
+var shell = require('shelljs');
 var mixpanel = require('mixpanel').init('1ca6a3146db8e6b46af00d0ce399260e ');
 
 var FamousGenerator = yeoman.generators.Base.extend({
   init: function () {
+    if (!shell.which('git')) {
+      this.log(chalk.red('(ERROR)') + ' It looks like you do not have git installed, please install it and try again.');
+      process.exit(1);
+    }
     this.pkg = require('../package.json');
     this.description = this.pkg.description;
     this.home = osenv.home();
