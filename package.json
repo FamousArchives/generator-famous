@@ -21,10 +21,11 @@
   ],
   "keywords": [
     "yeoman-generator",
-    "famo.us",
+    "famous",
     "generator",
     "boilerplate",
-    "grunt"
+    "grunt",
+    "bower"
   ],
   "dependencies": {
     "yeoman-generator": "~0.16.0",
