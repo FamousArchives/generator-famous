@@ -2,3 +2,4 @@ node_modules
 dist
 .tmp
 app/lib
+.yo-rc.json
