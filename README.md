@@ -1,4 +1,4 @@
-# generator-[famous](http://famo.us) [![Build Status](https://travis-ci.org/Famous/generator-famous.svg)](https://travis-ci.org/Famous/generator-famous)
+# generator-[famous](http://famo.us) [![Build Status](https://travis-ci.org/Famous/generator-famous.svg)](https://travis-ci.org/Famous/generator-famous) [![Dependency Status](https://david-dm.org/Famous/generator-famous.svg)](https://david-dm.org/Famous/generator-famous)
 
 > Use this [yeoman](http://yeoman.io) generator to seed your next Famo.us project... automation ftw!
 
