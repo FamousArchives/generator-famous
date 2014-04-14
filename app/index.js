@@ -189,20 +189,20 @@ var FamousGenerator = yeoman.generators.Base.extend({
   gruntfiles: function () {
     this.mkdir('grunt');
 
-    this.bulkCopy('grunt/aliases.js', 'grunt/aliases.js');
-    this.bulkCopy('grunt/eslint.js', 'grunt/eslint.js');
-    this.bulkCopy('grunt/jscs.js', 'grunt/jscs.js');
-    this.bulkCopy('grunt/watch.js', 'grunt/watch.js');
-    this.bulkCopy('grunt/connect.js', 'grunt/connect.js');
-    this.bulkCopy('grunt/clean.js', 'grunt/clean.js');
-    this.bulkCopy('grunt/bower.js', 'grunt/bower.js');
-    this.bulkCopy('grunt/rev.js', 'grunt/rev.js');
-    this.bulkCopy('grunt/processhtml.js', 'grunt/processhtml.js');
-    this.bulkCopy('grunt/useminPrepare.js', 'grunt/useminPrepare.js');
-    this.bulkCopy('grunt/usemin.js', 'grunt/usemin.js');
-    this.bulkCopy('grunt/htmlmin.js', 'grunt/htmlmin.js');
-    this.bulkCopy('grunt/copy.js', 'grunt/copy.js');
-    this.bulkCopy('grunt/requirejs.js', 'grunt/requirejs.js');
+    this.src.copy('grunt/aliases.js', 'grunt/aliases.js');
+    this.src.copy('grunt/eslint.js', 'grunt/eslint.js');
+    this.src.copy('grunt/jscs.js', 'grunt/jscs.js');
+    this.src.copy('grunt/watch.js', 'grunt/watch.js');
+    this.src.copy('grunt/connect.js', 'grunt/connect.js');
+    this.src.copy('grunt/clean.js', 'grunt/clean.js');
+    this.src.copy('grunt/bower.js', 'grunt/bower.js');
+    this.src.copy('grunt/rev.js', 'grunt/rev.js');
+    this.src.copy('grunt/processhtml.js', 'grunt/processhtml.js');
+    this.src.copy('grunt/useminPrepare.js', 'grunt/useminPrepare.js');
+    this.src.copy('grunt/usemin.js', 'grunt/usemin.js');
+    this.src.copy('grunt/htmlmin.js', 'grunt/htmlmin.js');
+    this.src.copy('grunt/copy.js', 'grunt/copy.js');
+    this.src.copy('grunt/requirejs.js', 'grunt/requirejs.js');
   }
 });
 
