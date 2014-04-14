@@ -1,7 +1,7 @@
 'use strict';
-var util = require('util');
+// var util = require('util');
 var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
+// var chalk = require('chalk');
 var _ = require('lodash');
 
 var ViewGenerator = yeoman.generators.NamedBase.extend({

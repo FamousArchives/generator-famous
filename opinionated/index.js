@@ -1,5 +1,5 @@
 'use strict';
-var util = require('util');
+// var util = require('util');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 

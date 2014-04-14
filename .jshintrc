@@ -2,7 +2,6 @@
   "node": true,
   "esnext": true,
   "bitwise": true,
-  "camelcase": true,
   "curly": true,
   "eqeqeq": true,
   "immed": true,
@@ -17,5 +16,6 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
+  "sub": true,
   "white": true
 }
