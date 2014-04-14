@@ -19,10 +19,23 @@ describe('famous generator', function () {
 
   it('creates expected files', function (done) {
     var expected = [
-      // add files you expect to exist here.
       'README.md',
       'package.json',
       'bower.json',
+      'grunt/aliases.js',
+      'grunt/eslint.js',
+      'grunt/jscs.js',
+      'grunt/watch.js',
+      'grunt/connect.js',
+      'grunt/clean.js',
+      'grunt/bower.js',
+      'grunt/rev.js',
+      'grunt/processhtml.js',
+      'grunt/useminPrepare.js',
+      'grunt/usemin.js',
+      'grunt/htmlmin.js',
+      'grunt/copy.js',
+      'grunt/requirejs.js',
       'Gruntfile.js',
       'app/index.html',
       'app/content/images/famous_symbol_transparent.png',
