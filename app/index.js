@@ -159,18 +159,36 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.mkdir('app/content');
     this.mkdir('app/content/images');
     this.mkdir('app/src');
+    this.mkdir('grunt');
 
-    this.template('README.md', 'README.md');
-    this.template('_package.json', 'package.json');
-    this.template('_bower.json', 'bower.json');
-    this.copy('_Gruntfile.js', 'Gruntfile.js');
+    this.copy('README.md', 'README.md');
+    this.copy('_package.json', 'package.json');
+    this.copy('_bower.json', 'bower.json');
+    
+/*    this.bulkDirectory('grunt/', 'grunt/');*/
+    this.bulkCopy('grunt/aliases.js', 'grunt/aliases.js');
+    this.bulkCopy('grunt/eslint.js', 'grunt/eslint.js');
+    this.bulkCopy('grunt/jscs.js', 'grunt/jscs.js');
+    this.bulkCopy('grunt/watch.js', 'grunt/watch.js');
+    this.bulkCopy('grunt/connect.js', 'grunt/connect.js');
+    this.bulkCopy('grunt/clean.js', 'grunt/clean.js');
+    this.bulkCopy('grunt/bower.js', 'grunt/bower.js');
+    this.bulkCopy('grunt/rev.js', 'grunt/rev.js');
+    this.bulkCopy('grunt/processhtml.js', 'grunt/processhtml.js');
+    this.bulkCopy('grunt/useminPrepare.js', 'grunt/useminPrepare.js');
+    this.bulkCopy('grunt/usemin.js', 'grunt/usemin.js');
+    this.bulkCopy('grunt/htmlmin.js', 'grunt/htmlmin.js');
+    this.bulkCopy('grunt/copy.js', 'grunt/copy.js');
+    this.bulkCopy('grunt/requirejs.js', 'grunt/requirejs.js');
+    
+    this.copy('Gruntfile.js', 'Gruntfile.js');
     this.template('_index.html', 'app/index.html');
     
-    this.copy('images/_famous_symbol_transparent.png', 'app/content/images/famous_symbol_transparent.png');
+    this.bulkCopy('images/_famous_symbol_transparent.png', 'app/content/images/famous_symbol_transparent.png');
     
-    this.copy('styles/_app.css', 'app/styles/app.css');
+    this.copy('styles/app.css', 'app/styles/app.css');
     
-    this.template('src/_requireConfig.js', 'app/src/requireConfig.js');
+    this.template('src/requireConfig.js', 'app/src/requireConfig.js');
     this.template('src/_main.js', 'app/src/main.js');
   },
 
