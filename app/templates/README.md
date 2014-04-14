@@ -43,7 +43,7 @@ If you would like to compile your project for distribution simply run the comman
 
 While the default style guidelines are fairly strict, we are doing so with reason.  Famo.us is not only a framework for creating cutting edge web application, but a community project that we are all going to contribute to in the hopes of making the web better.  We truly believe that having consistent style within the community will make it easier for individuals to jump between different Famo.us modules without having to waste valuable time on processing style.
 
-While our Package Manager (which is currently in development) will enforce our style guide if you would like to publish a module, feel free to disable eslint or jscs as you see fit.  If you want to disable linting you will need to comment out lines 57 (lint during watch task), 250-251 (run when server is launched), and 260-261 (lint when building for production)
+While our Package Manager (which is currently in development) will enforce our style guide if you would like to publish a module, feel free to disable eslint or jscs as you see fit.  If you want to disable linting you will need to comment out lines 18 - 19 in ```grunt/aliases.js```
 
 ## Contributing
 All contributions are welcome! The simplest way to show your support for this project is to **"star" it**.
