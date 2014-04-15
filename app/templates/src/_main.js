@@ -3,20 +3,16 @@ define(function(require, exports, module) {
     'use strict';
     // import dependencies
     var Engine = require('famous/core/Engine');
-    var Surface = require('famous/core/Surface');
+    var ImageSurface = require('famous/surfaces/ImageSurface');
     var StateModifier = require('famous/modifiers/StateModifier');
 
     // create the main context
     var mainContext = Engine.createContext();
 
     // your app here
-    var logo = new Surface({
+    var logo = new ImageSurface({
         size: [200, 200],
-        content: '<img width="200" src="content/images/famous_symbol_transparent.png"/>',
-        properties: {
-            lineHeight: '200px',
-            textAlign: 'center'
-        }
+        content: 'content/images/famous_logo.png'
     });
 
     var logoModifier = new StateModifier({
@@ -24,5 +20,4 @@ define(function(require, exports, module) {
     });
 
     mainContext.add(logoModifier).add(logo);
-
 });

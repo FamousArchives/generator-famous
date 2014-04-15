@@ -38,7 +38,7 @@ describe('famous generator', function () {
       'grunt/requirejs.js',
       'Gruntfile.js',
       'app/index.html',
-      'app/content/images/famous_symbol_transparent.png',
+      'app/content/images/famous_logo.png',
       'app/styles/app.css',
       'app/src/requireConfig.js',
       'app/src/main.js',
