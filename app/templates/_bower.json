@@ -14,7 +14,7 @@
   "keywords": [
     "famo.us"
   ],
-  "license": "MPL 2.0",
+  "license": "ISC",
   "private": true,
   "ignore": [
     "**/.*",
