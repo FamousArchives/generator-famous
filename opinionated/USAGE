@@ -1,10 +1,10 @@
 Description:
     Update the folder with some opinionated structure.
     Will only work if you say the magic word.
-    
+
 Example:
     yo famous:opinionated please
-    
+
     This will create:
         app/src/helpers
         app/src/helpers/README.md
