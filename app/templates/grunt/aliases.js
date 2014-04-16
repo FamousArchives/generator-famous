@@ -15,8 +15,7 @@ module.exports = function (grunt){
 
   grunt.registerTask('build', [
     'clean:dist',
-    'jscs',
-    'eslint',
+    'lint',
     'processhtml:dist',
     'useminPrepare',
     'requirejs',
@@ -27,6 +26,11 @@ module.exports = function (grunt){
     'rev',
     'usemin',
     'htmlmin'
+  ]);
+
+  grunt.registerTask('lint', [
+    'jscs',
+    'eslint'
   ]);
 
   grunt.registerTask('default', [

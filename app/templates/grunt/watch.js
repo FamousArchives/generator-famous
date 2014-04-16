@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     },
     js: {
       files: ['<%= config.app %>/src/**/**.js'],
-      tasks: ['jscs', 'eslint'],
+      tasks: ['lint'],
       options: {
         livereload: grunt.option('livereload') || true
       }
