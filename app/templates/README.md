@@ -1,5 +1,7 @@
-#<%= projectName %>                                                                                                               
+#<%= projectName %>
 > <%= _.capitalize(projectDesc) %>.
+
+[![Build Status](https://travis-ci.org/<%= authorLogin %>/<%= _.slugify(projectName) %>.svg?branch=master)](https://travis-ci.org/<%= authorLogin %>/<%= _.slugify(projectName) %>) [![Dependency Status](https://david-dm.org/<%= authorLogin %>/<%= _.slugify(projectName) %>.svg)](https://david-dm.org/<%= authorLogin %>/<%= _.slugify(projectName) %>)
 
 ##Dependencies
 It is actually quite simple really
