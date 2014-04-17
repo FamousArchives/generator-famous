@@ -9,7 +9,7 @@ It is actually quite simple really
 First make sure you have node.js, grunt-cli, and bower installed.
 
 ```
-brew install node
+brew install node # You can find the project at http://brew.sh/
 npm install -g grunt-cli bower
 ```
 
