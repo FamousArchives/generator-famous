@@ -35,7 +35,9 @@ Simply run ```grunt serve``` and you will start a local development server and o
 
 You can run serve with ```--port=9001``` to manually pick the port that the server will run on
 
-You can also change the port livereload is running on with the command ```--livereload=8675309```
+You can also change the port livereload is running on with the option ```--livereload=8675309```
+
+If you would like to have your server be accessible to other devices on your local machine use the options ```--hostname=0.0.0.0```
 
 ##Production
 
