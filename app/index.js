@@ -184,6 +184,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.copy('eslint.json', '.eslintrc');
     this.copy('jscs.json', '.jscsrc');
     this.copy('gitignore', '.gitignore');
+    this.copy('travis.yml', '.travis.yml');
   },
 
   gruntfiles: function () {
