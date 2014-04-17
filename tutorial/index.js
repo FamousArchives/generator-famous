@@ -56,7 +56,8 @@ var TutorialGenerator = yeoman.generators.NamedBase.extend({
           mixpanel.track('initialization', {
             distinct_id: this.rc.unique_id,
             packageName: this.pkg.name,
-            pacakgeVersion: this.pkg.version
+            pacakgeVersion: this.pkg.version,
+            type: 'yo famous:tutorial ' + this.name
           });
         }
         fs.writeFile(this.home + '/.famousrc', JSON.stringify(this.rc));
