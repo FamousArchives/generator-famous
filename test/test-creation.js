@@ -46,7 +46,8 @@ describe('famous generator', function () {
       '.bowerrc',
       '.eslintrc',
       '.jscsrc',
-      '.gitignore'
+      '.gitignore',
+      '.travis.yml'
     ];
 
     helpers.mockPrompt(this.app, {
