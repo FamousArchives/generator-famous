@@ -37,6 +37,7 @@
     "osenv": "0.0.3",
     "rc": "^0.3.4",
     "shelljs": "^0.2.6",
+    "update-notifier": "^0.1.8",
     "yeoman-generator": "~0.16.0"
   },
   "devDependencies": {

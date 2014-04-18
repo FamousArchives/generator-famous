@@ -14,9 +14,19 @@ var osenv = require('osenv');
 var rc = require('rc');
 var shell = require('shelljs');
 var mixpanel = require('mixpanel').init('1ca6a3146db8e6b46af00d0ce399260e ');
+var updateNotifier = require('update-notifier');
 
 var FamousGenerator = yeoman.generators.Base.extend({
   init: function () {
+    var notifier = updateNotifier({
+      packagePath: '../package.json',
+      updateCheckInterval: 1
+    });
+
+    if (notifier.update) {
+      notifier.notify();
+      process.exit(1);
+    }
     if (!shell.which('git')) {
       this.log(chalk.red('(ERROR)') + ' It looks like you do not have git installed, please install it and try again.');
       process.exit(1);
