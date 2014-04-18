@@ -16,7 +16,7 @@ Basically, he wears a top hat, lives in your computer, and waits for you to tell
 Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
 
 ```
-$ npm install -g yo
+$ npm install -g yo grunt-cli bower
 ```
 
 ### How to Install
