@@ -7,7 +7,7 @@ module.exports = {
       cwd: '<%= config.app %>',
       dest: '<%= config.dist %>',
       src: [
-        '**/**.{ico,png,txt,jpg}',
+        '**/**.{ico,png,txt,jpg,svg,wof,ttf}',
         '.htaccess',
         'images/{,*/}*.webp',
         // '{,*/}*.html',
