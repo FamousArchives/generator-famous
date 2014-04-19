@@ -18,6 +18,10 @@ var FamousGenerator = yeoman.generators.Base.extend({
     });
 
     if (notifier.update) {
+      notifier = updateNotifier({
+        packagePath: '../package.json',
+        updateCheckInterval: 1
+      });
       notifier.notify();
       process.exit(1);
     }
@@ -176,7 +180,12 @@ var FamousGenerator = yeoman.generators.Base.extend({
   },
 
   manifests: function () {
-    this.copy('_package.json', 'package.json');
+    if (metrics.getTinfoil()) {
+      this.copy('_package_tinfoil.json', 'package.json');
+    }
+    else {
+      this.copy('_package.json', 'package.json');
+    }
     this.copy('_bower.json', 'bower.json');
     this.copy('Gruntfile.js', 'Gruntfile.js');
   },
@@ -193,7 +202,13 @@ var FamousGenerator = yeoman.generators.Base.extend({
   gruntfiles: function () {
     this.mkdir('grunt');
 
-    this.src.copy('grunt/aliases.js', 'grunt/aliases.js');
+    if (metrics.getTinfoil()) {
+      this.src.copy('grunt/aliases_tinfoil.js', 'grunt/aliases.js');
+    }
+    else {
+      this.src.copy('grunt/aliases.js', 'grunt/aliases.js');
+    }
+
     this.src.copy('grunt/eslint.js', 'grunt/eslint.js');
     this.src.copy('grunt/jscs.js', 'grunt/jscs.js');
     this.src.copy('grunt/watch.js', 'grunt/watch.js');
