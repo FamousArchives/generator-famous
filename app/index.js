@@ -10,11 +10,9 @@ var fs = require('fs');
 var crypto = require('crypto');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
-var osenv = require('osenv');
-var rc = require('rc');
 var shell = require('shelljs');
-var mixpanel = require('mixpanel').init('1ca6a3146db8e6b46af00d0ce399260e ');
 var updateNotifier = require('update-notifier');
+var metrics = require('famous-metrics');
 
 var FamousGenerator = yeoman.generators.Base.extend({
   init: function () {
@@ -33,11 +31,6 @@ var FamousGenerator = yeoman.generators.Base.extend({
     }
     this.pkg = require('../package.json');
     this.description = this.pkg.description;
-    this.home = osenv.home();
-    this.rc = rc('famous', {
-      unique_id: '',
-      noTinfoil: null
-    });
 
     this.option('init', {
       alias: 'i',
@@ -46,7 +39,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
       defaults: false,
       required: false
     });
-    
+
     this.init = this.options['init'] || this.options['i'] || false;
 
     this.on('end', function () {
@@ -78,7 +71,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
       // replace it with a short and sweet description of your generator
       this.log(chalk.magenta('You\'re using the fantastic Famo.us generator.'));
     }
-    
+
     var force = false;
 
     if (!this.config.existed || this.init) {
@@ -86,7 +79,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
     }
 
     var questions = [];
-    
+
     if (!this.config.get('projectName') || force)  {
       questions.push({
         type : 'input',
@@ -114,7 +107,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
       });
     }
 
-    if (this.rc.noTinfoil === null) {
+    if (metrics.getTinfoil() === null) {
       questions.push({
         type : 'confirm',
         name : 'noTinfoil',
@@ -127,32 +120,34 @@ var FamousGenerator = yeoman.generators.Base.extend({
       this.projectName = answers.projectName || this.config.get('projectName');
       this.projectDesc = answers.projectDesc || this.config.get('projectDesc');
       this.authorLogin = answers.authorLogin || this.config.get('authorLogin');
-      
+
       this.authorName  = this.config.get('author').name;
       this.authorEmail = this.config.get('author').email;
-      
-      if (this.rc.noTinfoil === null) {
-        this.rc.noTinfoil = answers.noTinfoil;
-        if (this.rc.noTinfoil) {
-          this.rc.unique_id = crypto.createHash('sha256').update(this.authorEmail).digest('base64');
-          mixpanel.track('initialization', {
-            distinct_id: this.rc.unique_id,
-            packageName: this.pkg.name,
-            pacakgeVersion: this.pkg.version
+
+      if (metrics.getTinfoil() === null) {
+        if (answers.noTinfoil) {
+          metrics.setTinfoil(this.authorEmail, function(err) {
+            if (err) {
+              return console.error('Failed to write ~/.famousrc');
+            }
+            metrics.track('initialization', {
+              packageName: this.pkg.name,
+              packageVersion: this.pkg.version
+            });
+          });
+        } else {
+          metrics.setTinfoil(false, function(err){
+            if (err) {
+              return console.error('Failed to write ~/.famousrc');
+            }
           });
         }
-        fs.writeFile(this.home + '/.famousrc', JSON.stringify(this.rc));
       }
 
-      this.noTinfoil = this.rc.noTinfoil;
-
-      if (this.noTinfoil) {
-        this.unique_id = this.rc.unique_id;
-
-        mixpanel.track('yo famous', {
-          distinct_id: this.unique_id,
+      if (!metrics.getTinfoil()) {
+        metrics.track('initialization', {
           packageName: this.pkg.name,
-          pacakgeVersion: this.pkg.version
+          packageVersion: this.pkg.version
         });
       }
 
@@ -171,7 +166,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.mkdir('app/src');
 
     this.copy('README.md', 'README.md');
-    
+
     this.template('_index.html', 'app/index.html');
 
     this.bulkCopy('images/_famous_logo.png', 'app/content/images/famous_logo.png');
@@ -181,7 +176,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.template('src/requireConfig.js', 'app/src/requireConfig.js');
     this.template('src/_main.js', 'app/src/main.js');
   },
-  
+
   manifests: function () {
     this.copy('_package.json', 'package.json');
     this.copy('_bower.json', 'bower.json');
