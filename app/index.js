@@ -47,7 +47,13 @@ var FamousGenerator = yeoman.generators.Base.extend({
       if (!this.options['skip-install']) {
         this.installDependencies({
           skipInstall: this.options['skip-install'] || this.options['s'],
-          skipMessage: this.options['skip-welcome-message'] || this.options['w']
+          skipMessage: this.options['skip-welcome-message'] || this.options['w'],
+          callback: function () {
+            console.log('');
+            console.log(chalk.green('Woot!') + ' It appears that everything installed correctly.');
+            console.log('Please run the command ' + chalk.yellow('grunt serve') + ' to launch the development server.');
+            console.log('');
+          }
         });
       }
     });
