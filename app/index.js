@@ -17,16 +17,20 @@ var FamousGenerator = yeoman.generators.Base.extend({
       updateCheckInterval: 1
     });
 
+    this.pkg = require('../package.json');
+
     /* This is unneccessary and gross... but stops you from having to update twice */
     if (notifier.update) {
-      notifier.notify();
-      process.exit(1);
+      if (notifier.update.latest !== this.pkg.version) {
+        notifier.notify();
+        process.exit(1);
+      }
     }
     if (!shell.which('git')) {
       this.log(chalk.red('(ERROR)') + ' It looks like you do not have git installed, please install it and try again.');
       process.exit(1);
     }
-    this.pkg = require('../package.json');
+    
     this.description = this.pkg.description;
 
     this.option('init', {
