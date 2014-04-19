@@ -178,7 +178,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
 
     this.template('_index.html', 'app/index.html');
 
-    this.bulkCopy('images/_famous_logo.png', 'app/content/images/famous_logo.png');
+    this.src.copy('images/_famous_logo.png', 'app/content/images/famous_logo.png');
 
     this.copy('styles/app.css', 'app/styles/app.css');
 
