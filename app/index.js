@@ -128,9 +128,10 @@ var FamousGenerator = yeoman.generators.Base.extend({
             }
             metrics.track('initialization', {
               packageName: this.pkg.name,
-              packageVersion: this.pkg.version
+              packageVersion: this.pkg.version,
+              type: 'yo famous'
             });
-          });
+          }.bind(this));
         }
         else {
           metrics.setTinfoil(false, function (err) {
