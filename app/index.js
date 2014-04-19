@@ -4,10 +4,6 @@
 */
 
 'use strict';
-var fs = require('fs');
-// var util = require('util');
-// var path = require('path');
-var crypto = require('crypto');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var shell = require('shelljs');
@@ -126,7 +122,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
 
       if (metrics.getTinfoil() === null) {
         if (answers.noTinfoil) {
-          metrics.setTinfoil(this.authorEmail, function(err) {
+          metrics.setTinfoil(this.authorEmail, function (err) {
             if (err) {
               return console.error('Failed to write ~/.famousrc');
             }
@@ -135,8 +131,9 @@ var FamousGenerator = yeoman.generators.Base.extend({
               packageVersion: this.pkg.version
             });
           });
-        } else {
-          metrics.setTinfoil(false, function(err){
+        }
+        else {
+          metrics.setTinfoil(false, function (err) {
             if (err) {
               return console.error('Failed to write ~/.famousrc');
             }
