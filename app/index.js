@@ -145,7 +145,8 @@ var FamousGenerator = yeoman.generators.Base.extend({
       if (!metrics.getTinfoil()) {
         metrics.track('initialization', {
           packageName: this.pkg.name,
-          packageVersion: this.pkg.version
+          packageVersion: this.pkg.version,
+          type: 'yo famous'
         });
       }
 
