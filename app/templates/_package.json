@@ -35,7 +35,8 @@
     "grunt-eslint": "^0.4.0",
     "grunt-jscs-checker": "^0.4.1",
     "load-grunt-config": "^0.8.0-beta.1",
-    "time-grunt": "^0.3.1"
+    "time-grunt": "^0.3.1",
+    "famous-metrics": "0.0.4",
   },
   "scripts": {
     "test": "grunt test"
