@@ -17,15 +17,20 @@ var FamousGenerator = yeoman.generators.Base.extend({
       updateCheckInterval: 1
     });
 
+    this.pkg = require('../package.json');
+
+    /* This is unneccessary and gross... but stops you from having to update twice */
     if (notifier.update) {
-      notifier.notify();
-      process.exit(1);
+      if (notifier.update.latest !== this.pkg.version) {
+        notifier.notify();
+        process.exit(1);
+      }
     }
     if (!shell.which('git')) {
       this.log(chalk.red('(ERROR)') + ' It looks like you do not have git installed, please install it and try again.');
       process.exit(1);
     }
-    this.pkg = require('../package.json');
+    
     this.description = this.pkg.description;
 
     this.option('init', {
@@ -42,7 +47,13 @@ var FamousGenerator = yeoman.generators.Base.extend({
       if (!this.options['skip-install']) {
         this.installDependencies({
           skipInstall: this.options['skip-install'] || this.options['s'],
-          skipMessage: this.options['skip-welcome-message'] || this.options['w']
+          skipMessage: this.options['skip-welcome-message'] || this.options['w'],
+          callback: function () {
+            console.log('');
+            console.log(chalk.green('Woot!') + ' It appears that everything installed correctly.');
+            console.log('Please run the command ' + chalk.yellow('grunt serve') + ' to launch the development server.');
+            console.log('');
+          }
         });
       }
     });
@@ -143,10 +154,9 @@ var FamousGenerator = yeoman.generators.Base.extend({
       }
 
       if (!metrics.getTinfoil()) {
-        metrics.track('initialization', {
+        metrics.track('yo famous', {
           packageName: this.pkg.name,
-          packageVersion: this.pkg.version,
-          type: 'yo famous'
+          packageVersion: this.pkg.version
         });
       }
 
@@ -168,7 +178,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
 
     this.template('_index.html', 'app/index.html');
 
-    this.bulkCopy('images/_famous_logo.png', 'app/content/images/famous_logo.png');
+    this.src.copy('images/_famous_logo.png', 'app/content/images/famous_logo.png');
 
     this.copy('styles/app.css', 'app/styles/app.css');
 
@@ -177,7 +187,12 @@ var FamousGenerator = yeoman.generators.Base.extend({
   },
 
   manifests: function () {
-    this.copy('_package.json', 'package.json');
+    if (metrics.getTinfoil()) {
+      this.copy('_package_tinfoil.json', 'package.json');
+    }
+    else {
+      this.copy('_package.json', 'package.json');
+    }
     this.copy('_bower.json', 'bower.json');
     this.copy('Gruntfile.js', 'Gruntfile.js');
   },
@@ -194,7 +209,13 @@ var FamousGenerator = yeoman.generators.Base.extend({
   gruntfiles: function () {
     this.mkdir('grunt');
 
-    this.src.copy('grunt/aliases.js', 'grunt/aliases.js');
+    if (metrics.getTinfoil()) {
+      this.src.copy('grunt/aliases_tinfoil.js', 'grunt/aliases.js');
+    }
+    else {
+      this.src.copy('grunt/aliases.js', 'grunt/aliases.js');
+    }
+
     this.src.copy('grunt/eslint.js', 'grunt/eslint.js');
     this.src.copy('grunt/jscs.js', 'grunt/jscs.js');
     this.src.copy('grunt/watch.js', 'grunt/watch.js');
