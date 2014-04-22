@@ -1,5 +1,5 @@
 // The actual grunt server settings
-module.exports =  function (grunt){
+module.exports =  function (grunt) {
   'use strict';
   return {
     options: {
