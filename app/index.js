@@ -49,7 +49,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
 
     this.config.defaults({
       projectName: 'Famo.us Base',
-      projectDesc: 'Seed project to get started with Famo.us',
+      projectDesc: 'e.g. Seed project to get started with Famo.us',
       authorLogin: '',
       author: {
         name: this.user.git.username || process.env.user || process.env.username,
