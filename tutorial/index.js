@@ -1,13 +1,8 @@
 'use strict';
-// var util = require('util');
-var fs = require('fs');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
-var mixpanel = require('mixpanel').init('1ca6a3146db8e6b46af00d0ce399260e ');
-var crypto = require('crypto');
 var shell = require('shelljs');
-var rc = require('rc');
-var osenv = require('osenv');
+var metrics = require('famous-metrics');
 
 var TutorialGenerator = yeoman.generators.NamedBase.extend({
   init: function () {
@@ -16,30 +11,16 @@ var TutorialGenerator = yeoman.generators.NamedBase.extend({
       process.exit(1);
     }
     this.pkg = require('../package.json');
-    this.description = this.pkg.description;
-    this.home = osenv.home();
-    this.rc = rc('famous', {
-      unique_id: '',
-      noTinfoil: null
-    });
     
     console.log('Setting up the ' + this.name + ' tutorial.');
-    this.path = 'https://github.com/Famous/tutorial-' + this.name + '/archive/master.zip';
+    this.path = 'https://github.com/Famous/tutorial-' + this.name + '-assets/archive/master.zip';
   },
-
-  askFor: function () {
+  metrics: function () {
     var done = this.async();
 
-    // have Yeoman greet the user
-    if (!this.options['skip-welcome-message']) {
-      this.log(this.yeoman);
-      // replace it with a short and sweet description of your generator
-      this.log(chalk.magenta('You\'re using the fantastic Famo.us generator.'));
-    }
-
     var questions = [];
-    
-    if (this.rc.noTinfoil === null) {
+
+    if (metrics.getTinfoil() === null) {
       questions.push({
         type : 'confirm',
         name : 'noTinfoil',
@@ -49,50 +30,46 @@ var TutorialGenerator = yeoman.generators.NamedBase.extend({
     }
 
     this.prompt(questions, function (answers) {
-      if (this.rc.noTinfoil === null) {
-        this.rc.noTinfoil = answers.noTinfoil;
-        if (this.rc.noTinfoil) {
-          this.rc.unique_id = crypto.createHash('sha256').update(this.user.git.email).digest('base64');
-          mixpanel.track('initialization', {
-            distinct_id: this.rc.unique_id,
-            packageName: this.pkg.name,
-            pacakgeVersion: this.pkg.version,
-            type: 'yo famous:tutorial ' + this.name
+      if (metrics.getTinfoil() === null) {
+        if (answers.noTinfoil) {
+          metrics.setTinfoil(this.user.git.email, function (err) {
+            if (err) {
+              return console.error('Failed to write ~/.famousrc');
+            }
+            metrics.track('initialization', {
+              packageName: this.pkg.name,
+              packageVersion: this.pkg.version,
+              type: 'yo famous:view'
+            });
+          }.bind(this));
+        }
+        else {
+          metrics.setTinfoil(false, function (err) {
+            if (err) {
+              return console.error('Failed to write ~/.famousrc');
+            }
           });
         }
-        fs.writeFile(this.home + '/.famousrc', JSON.stringify(this.rc));
       }
 
-      this.noTinfoil = this.rc.noTinfoil;
+      if (!metrics.getTinfoil()) {
+        metrics.track('yo famous:tutorial', {
+          packageName: this.pkg.name,
+          pacakgeVersion: this.pkg.version,
+          tutorial: this.name
+        });
+      }
 
       done();
     }.bind(this));
   },
-
   download: function () {
-    this.extract(this.path, process.cwd(), function (err) {
+    var done = this.async();
+    this.extract(this.path, process.cwd() + '/app', function (err) {
       if (err) {
         console.log(chalk.red('ERROR: ') + 'Ruhroh, the tutorial ' + this.name + ' does not seem to exist... please try again later');
       }
-      else {
-        if (this.noTinfoil) {
-          this.unique_id = this.rc.unique_id;
-
-          mixpanel.track('yo famous:tutorial', {
-            distinct_id: this.unique_id,
-            packageName: this.pkg.name,
-            pacakgeVersion: this.pkg.version,
-            tutorial: this.name
-          });
-        }
-
-        if (!this.options['skip-install']) {
-          this.installDependencies({
-            skipInstall: this.options['skip-install'] || this.options['s'],
-            skipMessage: this.options['skip-welcome-message'] || this.options['w']
-          });
-        }
-      }
+      done();
     }.bind(this));
   }
 });
