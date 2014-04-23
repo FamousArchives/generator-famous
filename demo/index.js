@@ -65,7 +65,7 @@ var TutorialGenerator = yeoman.generators.NamedBase.extend({
   },
   download: function () {
     var done = this.async();
-    this.extract(this.path, process.cwd() + '/app', function (err) {
+    this.extract(this.path, process.cwd(), function (err) {
       if (err) {
         console.log(chalk.red('ERROR: ') + 'Ruhroh, the demo ' + this.name + ' does not seem to exist... please try again later');
       }
