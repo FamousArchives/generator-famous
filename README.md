@@ -30,8 +30,8 @@ $ npm install -g generator-famous
 Make a directory to put your app into and hop in
 
 ```
-$ mkdir moobyApp   # mkdir makes a new directory
-$ cd moobyApp      # cd is short for change directory
+$ mkdir famousApp   # mkdir makes a new directory
+$ cd famousApp      # cd is short for change directory
 $ yo famous        # Let's call the yeoman to make us famous
 ```
 
