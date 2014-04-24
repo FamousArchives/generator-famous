@@ -26,6 +26,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
         process.exit(1);
       }
     }
+
     if (!shell.which('git')) {
       this.log(chalk.red('(ERROR)') + ' It looks like you do not have git installed, please install it and try again.');
       process.exit(1);
@@ -68,7 +69,26 @@ var FamousGenerator = yeoman.generators.Base.extend({
       }
     });
   },
+  
+  envVars: function () {
+    var projectSettings = {};
+    if (process.env.PROJECT_NAME) {
+      projectSettings.projectName = process.env.PROJECT_NAME;
+    }
+    if (process.env.PROJECT_DESCRIPTION) {
+      projectSettings.projectDesc = process.env.PROJECT_DESCRIPTION;
+    }
+    if (process.env.GITHUB_USERNAME) {
+      projectSettings.authorLogin = process.env.GITHUB_USERNAME;
+    }
+    if (process.env.NO_TINFOIL) {
+      projectSettings.noTinfoil = process.env.NO_TINFOIL;
+    }
 
+    //save config to .yo-rc.json
+    this.config.set(projectSettings);
+  },
+    
   askFor: function () {
     var done = this.async();
 
@@ -87,7 +107,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
 
     var questions = [];
 
-    if (!this.config.get('projectName') || force)  {
+    if (!process.env.PROJECT_NAME && (!this.config.get('projectName') || force))  {
       questions.push({
         type : 'input',
         name : 'projectName',
@@ -96,7 +116,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
       });
     }
 
-    if (!this.config.get('projectDesc') || force) {
+    if (!process.env.PROJECT_DESCRIPTION && (!this.config.get('projectDesc') || force)) {
       questions.push({
         type : 'input',
         name : 'projectDesc',
@@ -105,7 +125,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
       });
     }
 
-    if (!this.config.get('authorLogin') || force) {
+    if (!process.env.GITHUB_USERNAME && (!this.config.get('authorLogin') || force)) {
       questions.push({
         type : 'input',
         name : 'authorLogin',
@@ -114,7 +134,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
       });
     }
 
-    if (metrics.getTinfoil() === null) {
+    if (!process.env.NO_TINFOIL && metrics.getTinfoil() === null) {
       questions.push({
         type : 'confirm',
         name : 'noTinfoil',
