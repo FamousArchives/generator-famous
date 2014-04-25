@@ -12,7 +12,7 @@ define(function(require, exports, module) {
     // your app here
     var logo = new ImageSurface({
         size: [200, 200],
-        content: 'content/images/famous_logo.png'
+        content: '/content/images/famous_logo.png'
     });
 
     var logoModifier = new StateModifier({
