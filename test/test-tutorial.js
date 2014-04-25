@@ -5,7 +5,7 @@ var helpers = require('yeoman-generator').test;
 
 describe('Famous generator tutorial mechanism', function () {
   beforeEach(function (done) {
-    var tutorialName = 'timbre-menu';
+    var tutorialName = 'test';
     helpers.testDirectory(path.join(__dirname, 'temp-tutorial'), function (err) {
       if (err) {
         return done(err);
@@ -21,17 +21,7 @@ describe('Famous generator tutorial mechanism', function () {
   it('creates expected files', function (done) {
     this.timeout(0);
     var expected = [
-      'app/styles/app.css',
-      'app/content/images/band.png',
-      'app/content/images/body.png',
-      'app/content/images/favicon.ico',
-      'app/content/images/hamburger.png',
-      'app/content/images/icon.png',
-      'app/content/images/search.png',
-      'app/content/images/strip-icons/friends.png',
-      'app/content/images/strip-icons/search.png',
-      'app/content/images/strip-icons/settings.png',
-      'app/content/images/strip-icons/starred.png'
+      'app/test'
     ];
 
     helpers.mockPrompt(this.app, {

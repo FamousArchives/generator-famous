@@ -13,7 +13,7 @@ var TutorialGenerator = yeoman.generators.NamedBase.extend({
     this.pkg = require('../package.json');
     
     console.log('Setting up the ' + this.name + ' tutorial.');
-    this.path = 'https://github.com/Famous/tutorial-' + this.name + '-assets/archive/master.zip';
+    this.path = 'http://download.famo.us/tutorials/' + this.name + '.tar.gz';
   },
   metrics: function () {
     var done = this.async();
