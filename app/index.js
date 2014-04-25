@@ -53,9 +53,17 @@ var FamousGenerator = yeoman.generators.Base.extend({
             console.log('');
             console.log(chalk.green('Woot!') + ' It appears that everything installed correctly.');
             console.log('Please run the command ' + chalk.yellow('grunt serve') + ' to launch the development server.');
+            console.log('Most questions you have will be answered in the generated ' + chalk.red('README.md'));
             console.log('');
           }
         });
+      }
+      else {
+        console.log('');
+        console.log(chalk.green('Woot!') + ' It appears that everything was copied over correctly.');
+        console.log('Please run the command ' + chalk.yellow('npm install && bower install') + ' to install all dependencies.');
+        console.log('Most questions you have will be answered in the generated ' + chalk.red('README.md'));
+        console.log('');
       }
     });
 
