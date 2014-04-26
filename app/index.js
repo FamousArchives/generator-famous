@@ -4,6 +4,7 @@
 */
 
 'use strict';
+var fs = require('fs');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var shell = require('shelljs');
@@ -16,6 +17,16 @@ var FamousGenerator = yeoman.generators.Base.extend({
       packagePath: '../package.json',
       updateCheckInterval: 1
     });
+    
+    var updateBower = function () {
+      var bowerRC = JSON.stringify({
+        'directory': 'app/lib',
+        'scripts': {
+          'postinstall': 'grunt bower'
+        }
+      });
+      fs.writeFile(process.cwd() + '/.bowerrc', bowerRC);
+    };
 
     this.pkg = require('../package.json');
 
@@ -50,6 +61,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
           skipInstall: this.options['skip-install'] || this.options['s'],
           skipMessage: this.options['skip-welcome-message'] || this.options['w'],
           callback: function () {
+            updateBower();
             console.log('');
             console.log(chalk.green('Woot!') + ' It appears that everything installed correctly.');
             console.log('Please run the command ' + chalk.yellow('grunt serve') + ' to launch the development server.');
@@ -59,11 +71,13 @@ var FamousGenerator = yeoman.generators.Base.extend({
         });
       }
       else {
+        updateBower();
         console.log('');
         console.log(chalk.green('Woot!') + ' It appears that everything was copied over correctly.');
         console.log('Please run the command ' + chalk.yellow('npm install && bower install') + ' to install all dependencies.');
         console.log('Most questions you have will be answered in the generated ' + chalk.red('README.md'));
         console.log('');
+        
       }
     });
 
