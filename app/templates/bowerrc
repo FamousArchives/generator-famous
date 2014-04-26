@@ -1,6 +1,3 @@
 {
-  "directory": "app/lib",
-  "scripts": {
-    "postinstall": "grunt bower"
-  }
+  "directory": "app/lib"
 }
