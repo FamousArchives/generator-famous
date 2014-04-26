@@ -249,77 +249,78 @@ var FamousGenerator = yeoman.generators.Base.extend({
         return done(err);
       }
       else if (!_.isEmpty(_.difference(files, ['.yo-rc.json']))) {
+        this.cwd = newDir;
         mkdir(files, done);
       }
       else {
+        this.cwd = process.cwd();
         done();
       }
-    });
+    }.bind(this));
   },
 
   app: function () {
-    this.mkdir('app');
-    this.mkdir('app/styles');
-    this.mkdir('app/content');
-    this.mkdir('app/content/images');
-    this.mkdir('app/src');
+    this.mkdir(this.cwd + '/app');
+    this.mkdir(this.cwd + '/app/styles');
+    this.mkdir(this.cwd + '/app/content');
+    this.mkdir(this.cwd + '/app/content/images');
+    this.mkdir(this.cwd + '/app/src');
 
-    this.copy('README.md', 'README.md');
+    this.copy('README.md', this.cwd + '/README.md');
 
-    this.template('_index.html', 'app/index.html');
+    this.template('_index.html', this.cwd + '/app/index.html');
 
-    this.src.copy('images/_famous_logo.png', process.cwd() + '/app/content/images/famous_logo.png');
+    this.src.copy('images/_famous_logo.png', this.cwd + '/app/content/images/famous_logo.png');
 
-    this.copy('styles/app.css', 'app/styles/app.css');
+    this.copy('styles/app.css', this.cwd + '/app/styles/app.css');
 
-    this.template('src/requireConfig.js', 'app/src/requireConfig.js');
-    this.template('src/_main.js', 'app/src/main.js');
+    this.template('src/requireConfig.js', this.cwd + '/app/src/requireConfig.js');
+    this.template('src/_main.js', this.cwd + '/app/src/main.js');
   },
 
   manifests: function () {
     if (metrics.getTinfoil()) {
-      this.copy('_package_tinfoil.json', 'package.json');
+      this.copy('_package_tinfoil.json', this.cwd + '/package.json');
     }
     else {
-      this.copy('_package.json', 'package.json');
+      this.copy('_package.json', this.cwd + '/package.json');
     }
-    this.copy('_bower.json', 'bower.json');
-    this.copy('Gruntfile.js', 'Gruntfile.js');
+    this.copy('_bower.json', this.cwd + '/bower.json');
+    this.copy('Gruntfile.js', this.cwd + '/Gruntfile.js');
   },
 
   dotfiles: function () {
-    this.copy('editorconfig', '.editorconfig');
-    this.copy('bowerrc', '.bowerrc');
-    this.copy('eslint.json', '.eslintrc');
-    this.copy('jscs.json', '.jscsrc');
-    this.copy('gitignore', '.gitignore');
-    this.copy('travis.yml', '.travis.yml');
+    this.copy('editorconfig', this.cwd + '/.editorconfig');
+    this.copy('bowerrc', this.cwd + '/.bowerrc');
+    this.copy('eslint.json', this.cwd + '/.eslintrc');
+    this.copy('jscs.json', this.cwd + '/.jscsrc');
+    this.copy('gitignore', this.cwd + '/.gitignore');
+    this.copy('travis.yml', this.cwd + '/.travis.yml');
   },
 
   gruntfiles: function () {
-    var cwd = process.cwd();
     this.mkdir('grunt');
 
     if (metrics.getTinfoil()) {
-      this.src.copy('grunt/aliases_tinfoil.js', cwd + '/grunt/aliases.js');
+      this.src.copy('grunt/aliases_tinfoil.js', this.cwd + '/grunt/aliases.js');
     }
     else {
-      this.src.copy('grunt/aliases.js', cwd + '/grunt/aliases.js');
+      this.src.copy('grunt/aliases.js', this.cwd + '/grunt/aliases.js');
     }
 
-    this.src.copy('grunt/eslint.js', cwd + '/grunt/eslint.js');
-    this.src.copy('grunt/jscs.js', cwd + '/grunt/jscs.js');
-    this.src.copy('grunt/watch.js', cwd + '/grunt/watch.js');
-    this.src.copy('grunt/connect.js', cwd + '/grunt/connect.js');
-    this.src.copy('grunt/clean.js', cwd + '/grunt/clean.js');
-    this.src.copy('grunt/bower.js', cwd + '/grunt/bower.js');
-    this.src.copy('grunt/rev.js', cwd + '/grunt/rev.js');
-    this.src.copy('grunt/processhtml.js', cwd + '/grunt/processhtml.js');
-    this.src.copy('grunt/useminPrepare.js', cwd + '/grunt/useminPrepare.js');
-    this.src.copy('grunt/usemin.js', cwd + '/grunt/usemin.js');
-    this.src.copy('grunt/htmlmin.js', cwd + '/grunt/htmlmin.js');
-    this.src.copy('grunt/copy.js', cwd + '/grunt/copy.js');
-    this.src.copy('grunt/requirejs.js', cwd + '/grunt/requirejs.js');
+    this.src.copy('grunt/eslint.js', this.cwd + '/grunt/eslint.js');
+    this.src.copy('grunt/jscs.js', this.cwd + '/grunt/jscs.js');
+    this.src.copy('grunt/watch.js', this.cwd + '/grunt/watch.js');
+    this.src.copy('grunt/connect.js', this.cwd + '/grunt/connect.js');
+    this.src.copy('grunt/clean.js', this.cwd + '/grunt/clean.js');
+    this.src.copy('grunt/bower.js', this.cwd + '/grunt/bower.js');
+    this.src.copy('grunt/rev.js', this.cwd + '/grunt/rev.js');
+    this.src.copy('grunt/processhtml.js', this.cwd + '/grunt/processhtml.js');
+    this.src.copy('grunt/useminPrepare.js', this.cwd + '/grunt/useminPrepare.js');
+    this.src.copy('grunt/usemin.js', this.cwd + '/grunt/usemin.js');
+    this.src.copy('grunt/htmlmin.js', this.cwd + '/grunt/htmlmin.js');
+    this.src.copy('grunt/copy.js', this.cwd + '/grunt/copy.js');
+    this.src.copy('grunt/requirejs.js', this.cwd + '/grunt/requirejs.js');
   }
 });
 
