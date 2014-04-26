@@ -1,6 +1,6 @@
 {
   "name": "generator-famous",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "Create new Famo.us projects",
   "license": "MPL v2",
   "main": "app/index.js",
@@ -36,7 +36,7 @@
     "shelljs": "^0.2.6",
     "update-notifier": "^0.1.8",
     "yeoman-generator": "~0.16.0",
-    "famous-metrics": "0.0.5"
+    "famous-metrics": "0.0.6"
   },
   "devDependencies": {
     "mocha": "*",
