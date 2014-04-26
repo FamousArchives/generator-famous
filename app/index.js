@@ -10,6 +10,7 @@ var chalk = require('chalk');
 var shell = require('shelljs');
 var updateNotifier = require('update-notifier');
 var metrics = require('famous-metrics');
+var _ = require('lodash');
 
 var FamousGenerator = yeoman.generators.Base.extend({
   init: function () {
@@ -91,7 +92,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
       }
     });
   },
-  
+
   envVars: function () {
     var projectSettings = {};
     if (process.env.PROJECT_NAME) {
@@ -209,6 +210,53 @@ var FamousGenerator = yeoman.generators.Base.extend({
     }.bind(this));
   },
 
+  dirCheck: function () {
+    var done = this.async();
+    var cwd = process.cwd();
+    var newDir = cwd + '/' + _.slugify(this.projectName);
+    var projectName = this.projectName;
+    var saveConfig = this.config.save;
+
+    var cleanup = function (done) {
+      this.config.path = newDir + '/.yo-rc.json';
+      fs.unlink(cwd + '/.yo-rc.json', function (err) {
+        if (err) {
+          done();
+        }
+        saveConfig();
+        process.chdir(newDir);
+        done();
+      });
+    }.bind(this);
+    
+    var mkdir = function (files, done) {
+      fs.mkdir(newDir, function (err) {
+        if (err) {
+          fs.unlink(cwd + '/.yo-rc.json', function () {
+            console.log(chalk.red('ERROR: ') + 'It seems you already have a folder named ' + projectName);
+            console.log('       Please try a different name for your project');
+            process.exit(1);
+          });
+        }
+        else {
+          cleanup(done);
+        }
+      });
+    };
+    
+    fs.readdir(cwd, function (err, files) {
+      if (err) {
+        return done(err);
+      }
+      else if (!_.isEmpty(_.difference(files, ['.yo-rc.json']))) {
+        mkdir(files, done);
+      }
+      else {
+        done();
+      }
+    });
+  },
+
   app: function () {
     this.mkdir('app');
     this.mkdir('app/styles');
@@ -220,7 +268,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
 
     this.template('_index.html', 'app/index.html');
 
-    this.src.copy('images/_famous_logo.png', 'app/content/images/famous_logo.png');
+    this.src.copy('images/_famous_logo.png', process.cwd() + '/app/content/images/famous_logo.png');
 
     this.copy('styles/app.css', 'app/styles/app.css');
 
@@ -249,28 +297,29 @@ var FamousGenerator = yeoman.generators.Base.extend({
   },
 
   gruntfiles: function () {
+    var cwd = process.cwd();
     this.mkdir('grunt');
 
     if (metrics.getTinfoil()) {
-      this.src.copy('grunt/aliases_tinfoil.js', 'grunt/aliases.js');
+      this.src.copy('grunt/aliases_tinfoil.js', cwd + '/grunt/aliases.js');
     }
     else {
-      this.src.copy('grunt/aliases.js', 'grunt/aliases.js');
+      this.src.copy('grunt/aliases.js', cwd + '/grunt/aliases.js');
     }
 
-    this.src.copy('grunt/eslint.js', 'grunt/eslint.js');
-    this.src.copy('grunt/jscs.js', 'grunt/jscs.js');
-    this.src.copy('grunt/watch.js', 'grunt/watch.js');
-    this.src.copy('grunt/connect.js', 'grunt/connect.js');
-    this.src.copy('grunt/clean.js', 'grunt/clean.js');
-    this.src.copy('grunt/bower.js', 'grunt/bower.js');
-    this.src.copy('grunt/rev.js', 'grunt/rev.js');
-    this.src.copy('grunt/processhtml.js', 'grunt/processhtml.js');
-    this.src.copy('grunt/useminPrepare.js', 'grunt/useminPrepare.js');
-    this.src.copy('grunt/usemin.js', 'grunt/usemin.js');
-    this.src.copy('grunt/htmlmin.js', 'grunt/htmlmin.js');
-    this.src.copy('grunt/copy.js', 'grunt/copy.js');
-    this.src.copy('grunt/requirejs.js', 'grunt/requirejs.js');
+    this.src.copy('grunt/eslint.js', cwd + '/grunt/eslint.js');
+    this.src.copy('grunt/jscs.js', cwd + '/grunt/jscs.js');
+    this.src.copy('grunt/watch.js', cwd + '/grunt/watch.js');
+    this.src.copy('grunt/connect.js', cwd + '/grunt/connect.js');
+    this.src.copy('grunt/clean.js', cwd + '/grunt/clean.js');
+    this.src.copy('grunt/bower.js', cwd + '/grunt/bower.js');
+    this.src.copy('grunt/rev.js', cwd + '/grunt/rev.js');
+    this.src.copy('grunt/processhtml.js', cwd + '/grunt/processhtml.js');
+    this.src.copy('grunt/useminPrepare.js', cwd + '/grunt/useminPrepare.js');
+    this.src.copy('grunt/usemin.js', cwd + '/grunt/usemin.js');
+    this.src.copy('grunt/htmlmin.js', cwd + '/grunt/htmlmin.js');
+    this.src.copy('grunt/copy.js', cwd + '/grunt/copy.js');
+    this.src.copy('grunt/requirejs.js', cwd + '/grunt/requirejs.js');
   }
 });
 
