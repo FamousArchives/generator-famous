@@ -14,11 +14,14 @@ var _ = require('lodash');
 
 var FamousGenerator = yeoman.generators.Base.extend({
   init: function () {
+    // Test to see if they are using an old version
+    
     var notifier = updateNotifier({
       packagePath: '../package.json',
       updateCheckInterval: 1
     });
     
+    // Function to replace .bowerrc after installation
     var updateBower = function () {
       var bowerRC = JSON.stringify({
         'directory': 'app/lib',
@@ -26,12 +29,11 @@ var FamousGenerator = yeoman.generators.Base.extend({
           'postinstall': 'grunt bower'
         }
       });
-      fs.writeFile(process.cwd() + '/.bowerrc', bowerRC);
-    };
+      fs.writeFile(this.cwd + '/.bowerrc', bowerRC);
+    }.bind(this);
 
     this.pkg = require('../package.json');
 
-    /* This is unneccessary and gross... but stops you from having to update twice */
     if (notifier.update) {
       if (notifier.update.latest !== this.pkg.version) {
         notifier.notify();
@@ -248,7 +250,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
       if (err) {
         return done(err);
       }
-      else if (!_.isEmpty(_.difference(files, ['.yo-rc.json']))) {
+      else if (!_.isEmpty(_.difference(files, ['.yo-rc.json'])) && !_.contains(files, '.gitignore')) {
         this.cwd = newDir;
         mkdir(files, done);
       }
