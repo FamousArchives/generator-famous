@@ -1,6 +1,6 @@
 {
   "name": "generator-famous",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "description": "Create new Famo.us projects",
   "license": "MPL v2",
   "main": "app/index.js",
