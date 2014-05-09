@@ -59,6 +59,8 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.init = this.options['init'] || this.options['i'] || false;
 
     this.on('end', function () {
+      var path = this.cwd.split('/');
+      path = path[path.length - 1];
       if (!this.options['skip-install']) {
         this.installDependencies({
           skipInstall: this.options['skip-install'] || this.options['s'],
@@ -67,22 +69,37 @@ var FamousGenerator = yeoman.generators.Base.extend({
             updateBower();
             console.log('');
             console.log(chalk.green('Woot!') + ' It appears that everything installed correctly.');
-            console.log('Please run the command ' + chalk.yellow('grunt serve') + ' to launch the development server.');
+            if (this.changedDir) {
+              console.log('Your project has been created in a new directory');
+              console.log('You can travel to it via the command ' + chalk.blue('cd ' + path) + '');
+              console.log('Then run the command ' + chalk.yellow('grunt serve') + ' to launch the development server.');
+            }
+            else {
+              console.log('Please run the command ' + chalk.yellow('grunt serve') + ' to launch the development server.');
+            }
             console.log('Most questions you have will be answered in the generated ' + chalk.red('README.md'));
             console.log('');
-          }
+          }.bind(this)
         });
       }
       else {
         updateBower();
         console.log('');
         console.log(chalk.green('Woot!') + ' It appears that everything was copied over correctly.');
-        console.log('Please run the command ' + chalk.yellow('npm install && bower install') + ' to install all dependencies.');
+        if (this.changedDir) {
+          console.log('Your project has been created in a new directory');
+          console.log('You can travel to it via the command ' + chalk.blue('cd ' + path) + '');
+          console.log('and then run the command ' + chalk.yellow('npm install && bower install') + ' to install all dependencies.');
+        }
+        else {
+          console.log('Please run the command ' + chalk.yellow('npm install && bower install') + ' to install all dependencies.');
+        }
+        
         console.log('Most questions you have will be answered in the generated ' + chalk.red('README.md'));
         console.log('');
         
       }
-    });
+    }.bind(this));
 
     this.config.defaults({
       projectName: 'Famo.us Base',
@@ -91,7 +108,8 @@ var FamousGenerator = yeoman.generators.Base.extend({
       author: {
         name: this.user.git.username || process.env.user || process.env.username,
         email: this.user.git.email
-      }
+      },
+      changedDir: false
     });
   },
 
@@ -218,9 +236,12 @@ var FamousGenerator = yeoman.generators.Base.extend({
     var newDir = cwd + '/' + _.slugify(this.projectName);
     var projectName = this.projectName;
     var saveConfig = this.config.save;
+    this.changedDir = false;
 
     var cleanup = function (done) {
+      // This line is needed to cleanup old yo rc
       this.config.path = newDir + '/.yo-rc.json';
+      this.changedDir = true;
       fs.unlink(cwd + '/.yo-rc.json', function (err) {
         if (err) {
           done();
