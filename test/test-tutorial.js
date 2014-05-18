@@ -24,9 +24,6 @@ describe('Famous generator tutorial mechanism', function () {
       'app/test'
     ];
 
-    helpers.mockPrompt(this.app, {
-      'someOption': true
-    });
     this.tutorial.run({}, function () {
       helpers.assertFile(expected);
       done();
