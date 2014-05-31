@@ -27,6 +27,6 @@
     "requirejs": "~2.1.11",
     "almond": "~0.2.9",
     "famous-polyfills": "git+https://github.com/Famous/polyfills.git#0.1.1",
-    "famous": "git+https://github.com/Famous/famous.git#0.2.0"
+    "famous": "~0.2.1"
   }
 }
