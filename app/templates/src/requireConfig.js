@@ -4,10 +4,9 @@ require.config({
 
     },
     paths: {
-        famous: '../lib/famous'
-    },
-    packages: [
-
-    ]
+        famous: '../lib/famous',
+        requirejs: '../lib/requirejs/require',
+        almond: '../lib/almond/almond'
+    }
 });
 require(['main']);
