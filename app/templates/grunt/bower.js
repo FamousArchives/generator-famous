@@ -2,5 +2,8 @@
 module.exports = {
   raget: {
     rjsConfig: '<%= config.app %>/src/requireConfig.js'
+  },
+  options: {
+    exclude: ['famous', 'famous-polyfills', 'requirejs', 'almond']
   }
 };

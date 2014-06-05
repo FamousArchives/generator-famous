@@ -4,10 +4,10 @@ require.config({
 
     },
     paths: {
-        famous: '../lib/famous',
-        requirejs: '../lib/requirejs/require',
-        almond: '../lib/almond/almond',
-        'famous-polyfills': '../lib/famous-polyfills/index'
-    }
+        famous: '../lib/famous'
+    },
+    packages: [
+
+    ]
 });
 require(['main']);
