@@ -193,7 +193,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
 
       this.authorName  = this.config.get('author').name;
       this.authorEmail = this.config.get('author').email;
-
+      this.tinfoil = metrics.getTinfoil();
       if (metrics.getTinfoil() === null) {
         if (answers.noTinfoil) {
           metrics.setTinfoil(this.authorEmail, function (err) {
@@ -214,6 +214,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
             }
           });
         }
+        this.tinfoil = metrics.getTinfoil();
       }
 
       if (!metrics.getTinfoil()) {
@@ -302,13 +303,8 @@ var FamousGenerator = yeoman.generators.Base.extend({
   },
 
   manifests: function () {
-    if (metrics.getTinfoil()) {
-      this.copy('_package_tinfoil.json', this.cwd + '/package.json');
-    }
-    else {
-      this.copy('_package.json', this.cwd + '/package.json');
-    }
-    this.copy('_bower.json', this.cwd + '/bower.json');
+    this.template('_package.json', this.cwd + '/package.json');
+    this.template('_bower.json', this.cwd + '/bower.json');
     this.copy('Gruntfile.js', this.cwd + '/Gruntfile.js');
   },
 
@@ -324,13 +320,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
   gruntfiles: function () {
     this.mkdir('grunt');
 
-    if (metrics.getTinfoil()) {
-      this.src.copy('grunt/aliases_tinfoil.js', this.cwd + '/grunt/aliases.js');
-    }
-    else {
-      this.src.copy('grunt/aliases.js', this.cwd + '/grunt/aliases.js');
-    }
-
+    this.template('grunt/_aliases.js', this.cwd + '/grunt/aliases.js');
     this.src.copy('grunt/eslint.js', this.cwd + '/grunt/eslint.js');
     this.src.copy('grunt/jscs.js', this.cwd + '/grunt/jscs.js');
     this.src.copy('grunt/watch.js', this.cwd + '/grunt/watch.js');

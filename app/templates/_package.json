@@ -19,6 +19,7 @@
     "node": ">= 0.10.0"
   },
   "devDependencies": {
+    <% if (!tinfoil) { %>"famous-metrics": "0.0.9",<% } %>
     "grunt": "~0.4.4",
     "grunt-contrib-clean": "^0.5.0",
     "grunt-contrib-connect": "^0.7.1",
@@ -36,8 +37,7 @@
     "grunt-eslint": "^0.5.0",
     "grunt-jscs-checker": "^0.4.1",
     "load-grunt-config": "^0.9.1",
-    "time-grunt": "^0.3.1",
-    "famous-metrics": "0.0.9"
+    "time-grunt": "^0.3.1"
   },
   "scripts": {
     "test": "grunt test"
