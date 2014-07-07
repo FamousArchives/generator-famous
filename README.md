@@ -59,9 +59,10 @@ Description:
     
 Example:
     
-yo famous
+    yo famous
     
-    This will create:
+This will create:
+
         README.md
         Gruntfile.js
         bower.json
@@ -85,16 +86,13 @@ Description:
     
 Example:
     
-yo famous:view MyView
+    yo famous:view MyView
     
-    This will create:
-        app/src/views/MyView.js
+This will create: ```app/src/views/MyView.js```
         
+    yo famous:view Some/Path/OtherView
     
-yo famous:view Some/Path/OtherView
-    
-    This will create:
-        app/src/views/Some/Path/OtherView.js
+This will create: ```app/src/views/Some/Path/OtherView.js```
 
 ### Getting To Know Yeoman
 
@@ -106,7 +104,7 @@ When this generator scaffolds out a project it generates a .yo-rc.json file.  Th
 
 PHEW
 
-TLDR: If ```yo famous``` is putting things in parent directories check for an orphaned .yo-rc.json
+*TLDR:* If ```yo famous``` is putting things in parent directories check for an orphaned ```.yo-rc.json```
 
 ### Shout outs
 
