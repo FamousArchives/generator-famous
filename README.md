@@ -70,7 +70,7 @@ This will create:
         
         .bowerrc
         .editorconfig
-        .edlint.json
+        .eslint.json
         .jscs.json
         
         app/index.html
