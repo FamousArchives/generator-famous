@@ -11,6 +11,8 @@ define(function(require, exports, module) {
     var mainContext = Engine.createContext();
 
     // your app here
+    mainContext.setPerspective(1000);
+
     var logo = new ImageSurface({
         size: [200, 200],
         content: '/content/images/famous_logo.png',
