@@ -7,12 +7,10 @@ describe('famous generator', function () {
     var app = require('../app');
     var view = require('../view');
     var opinionated = require('../opinionated');
-    var tutorial = require('../tutorial');
     
     assert(app !== undefined);
     assert(view !== undefined);
     assert(opinionated !== undefined);
     assert(app !== undefined);
-    assert(tutorial !== undefined);
   });
 });
