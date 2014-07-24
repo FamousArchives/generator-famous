@@ -15,9 +15,10 @@ var _ = require('lodash');
 var FamousGenerator = yeoman.generators.Base.extend({
   init: function () {
     // Test to see if they are using an old version
-    
+    var pkg = require('../package.json');
     var notifier = updateNotifier({
-      packagePath: '../package.json',
+      packageName: pkg.name,
+      packageVersion: pkg.version,
       updateCheckInterval: 1
     });
     
