@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "mocha-jshint": "0.0.7"
+    "mocha-jshint": "0.0.9"
   },
   "peerDependencies": {
     "yo": ">=1.0.0"
