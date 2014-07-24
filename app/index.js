@@ -236,7 +236,6 @@ var FamousGenerator = yeoman.generators.Base.extend({
     var cwd = process.cwd();
     var newDir = cwd + '/' + _.slugify(this.projectName);
     var projectName = this.projectName;
-    var saveConfig = this.config.save;
     this.changedDir = false;
 
     var cleanup = function (done) {
@@ -247,10 +246,10 @@ var FamousGenerator = yeoman.generators.Base.extend({
         if (err) {
           done();
         }
-        saveConfig();
+        this.config.save();
         process.chdir(newDir);
         done();
-      });
+      }.bind(this));
     }.bind(this);
     
     var mkdir = function (files, done) {
