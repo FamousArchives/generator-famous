@@ -195,36 +195,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
       this.authorName  = this.config.get('author').name;
       this.authorEmail = this.config.get('author').email;
       this.tinfoil = metrics.getTinfoil();
-      if (metrics.getTinfoil() === null) {
-        if (answers.noTinfoil) {
-          metrics.setTinfoil(this.authorEmail, function (err) {
-            if (err) {
-              return console.error('Failed to write ~/.famousrc');
-            }
-            metrics.track('initialization', {
-              packageName: this.pkg.name,
-              packageVersion: this.pkg.version,
-              type: 'yo famous'
-            });
-          }.bind(this));
-        }
-        else {
-          metrics.setTinfoil(false, function (err) {
-            if (err) {
-              return console.error('Failed to write ~/.famousrc');
-            }
-          });
-        }
-        this.tinfoil = metrics.getTinfoil();
-      }
-
-      if (!metrics.getTinfoil()) {
-        metrics.track('yo famous', {
-          packageName: this.pkg.name,
-          packageVersion: this.pkg.version
-        });
-      }
-
+      
       //save config to .yo-rc.json
       this.config.set(answers);
 
