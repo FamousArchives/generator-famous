@@ -34,6 +34,8 @@ You can also change the port livereload is running on with the option ```--liver
 
 If you would like to have your server be accessible to other devices on your local machine use the option ```--hostname=0.0.0.0```
 
+If you don't like your browser being opened for use a ```--no-open``` flag to disable the feature
+
 ##Production
 
 If you would like to compile your project for distribution simply run the command ```grunt``` to build ```dist/``` which will be a deployment ready version of your app.  Preprocessing will be applied to html, all js will be concatenated and minified.  All js / css assets will also have their name prepended with a hash for cache busting.

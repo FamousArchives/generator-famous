@@ -10,7 +10,7 @@ module.exports =  function (grunt) {
     },
     livereload: {
       options: {
-        open: true,
+        open: !grunt.option('no-open'),
         base: [
           '.tmp',
           '<%= config.app %>'
@@ -19,7 +19,7 @@ module.exports =  function (grunt) {
     },
     dist: {
       options: {
-        open: true,
+        open: !grunt.option('no-open'),
         base: '<%= config.dist %>',
         livereload: false
       }
