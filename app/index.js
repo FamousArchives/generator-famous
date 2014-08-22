@@ -178,15 +178,6 @@ var FamousGenerator = yeoman.generators.Base.extend({
       });
     }
 
-    if (!process.env.NO_TINFOIL && metrics.getTinfoil() === null) {
-      questions.push({
-        type : 'confirm',
-        name : 'noTinfoil',
-        message : chalk.green('(optional)') + ' Do you agree to our Terms of Service (https://famo.us/terms) and our Privacy Policy (http://famo.us/privacy)?',
-        default : true
-      });
-    }
-
     this.prompt(questions, function (answers) {
       this.projectName = answers.projectName || this.config.get('projectName');
       this.projectDesc = answers.projectDesc || this.config.get('projectDesc');
