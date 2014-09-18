@@ -1,9 +1,10 @@
-var metrics = require('famous-metrics');
+
+<% if (tracking) { %>var metrics = require('famous-metrics');<% } %>
 
 module.exports = function (grunt) {
   'use strict';
   grunt.registerTask('serve', function (target) {
-    <% if (!tinfoil) { %>if (!metrics.getTinfoil()) {
+    <% if (tracking) { %>if (metrics.getTracking()) {
       metrics.track('grunt serve', {});
     }<% } %>
 

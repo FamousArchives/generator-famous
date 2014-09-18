@@ -125,8 +125,8 @@ var FamousGenerator = yeoman.generators.Base.extend({
     if (process.env.GITHUB_USERNAME) {
       projectSettings.authorLogin = process.env.GITHUB_USERNAME;
     }
-    if (process.env.NO_TINFOIL) {
-      projectSettings.noTinfoil = process.env.NO_TINFOIL;
+    if (process.env.FAMOUS_TRACKING) {
+      projectSettings.tracking = process.env.FAMOUS_TRACKING;
     }
 
     //save config to .yo-rc.json
@@ -178,10 +178,10 @@ var FamousGenerator = yeoman.generators.Base.extend({
       });
     }
 
-    if (!process.env.NO_TINFOIL && metrics.getTinfoil() === null) {
+    if (!process.env.FAMOUS_TRACKING && metrics.getTracking() === null) {
       questions.push({
         type : 'confirm',
-        name : 'noTinfoil',
+        name : 'tracking',
         message : chalk.green('(optional)') + ' Do you agree to our Terms of Service (https://famo.us/terms) and our Privacy Policy (http://famo.us/privacy)?',
         default : true
       });
@@ -192,12 +192,13 @@ var FamousGenerator = yeoman.generators.Base.extend({
       this.projectDesc = answers.projectDesc || this.config.get('projectDesc');
       this.authorLogin = answers.authorLogin || this.config.get('authorLogin');
 
-      this.authorName  = this.config.get('author').name;
-      this.authorEmail = this.config.get('author').email;
-      this.tinfoil = metrics.getTinfoil();
-      if (metrics.getTinfoil() === null) {
-        if (answers.noTinfoil) {
-          metrics.setTinfoil(this.authorEmail, function (err) {
+      this.authorName  = this.user.git.name();
+      this.authorEmail = this.user.git.email();
+      
+      this.tracking = metrics.getTracking();
+      if (metrics.getTracking() === null) {
+        if (answers.tracking) {
+          metrics.setTracking(this.authorEmail, function (err) {
             if (err) {
               return console.error('Failed to write ~/.famousrc');
             }
@@ -205,20 +206,22 @@ var FamousGenerator = yeoman.generators.Base.extend({
               packageName: this.pkg.name,
               packageVersion: this.pkg.version,
               type: 'yo famous'
+            }, function () {
+              
             });
           }.bind(this));
         }
         else {
-          metrics.setTinfoil(false, function (err) {
+          metrics.setTracking(false, function (err) {
             if (err) {
               return console.error('Failed to write ~/.famousrc');
             }
           });
         }
-        this.tinfoil = metrics.getTinfoil();
+        this.tracking = metrics.getTracking();
       }
 
-      if (!metrics.getTinfoil()) {
+      if (metrics.getTracking()) {
         metrics.track('yo famous', {
           packageName: this.pkg.name,
           packageVersion: this.pkg.version

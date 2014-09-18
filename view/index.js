@@ -20,31 +20,33 @@ var ViewGenerator = yeoman.generators.NamedBase.extend({
 
     var questions = [];
 
-    if (metrics.getTinfoil() === null) {
+    if (!process.env.FAMOUS_TRACKING && metrics.getTracking() === null) {
       questions.push({
         type : 'confirm',
-        name : 'noTinfoil',
+        name : 'tracking',
         message : chalk.green('(optional)') + ' Do you agree to our Terms of Service (https://famo.us/terms) and our Privacy Policy (http://famo.us/privacy)?',
         default : true
       });
     }
 
     this.prompt(questions, function (answers) {
-      if (metrics.getTinfoil() === null) {
-        if (answers.noTinfoil) {
-          metrics.setTinfoil(this.user.git.email, function (err) {
+      if (metrics.getTracking() === null) {
+        if (answers.tracking) {
+          metrics.setTracking(this.authorEmail, function (err) {
             if (err) {
               return console.error('Failed to write ~/.famousrc');
             }
             metrics.track('initialization', {
               packageName: this.pkg.name,
               packageVersion: this.pkg.version,
-              type: 'yo famous:view'
+              type: 'yo famous'
+            }, function () {
+              
             });
           }.bind(this));
         }
         else {
-          metrics.setTinfoil(false, function (err) {
+          metrics.setTracking(false, function (err) {
             if (err) {
               return console.error('Failed to write ~/.famousrc');
             }
@@ -52,7 +54,7 @@ var ViewGenerator = yeoman.generators.NamedBase.extend({
         }
       }
       
-      if (!metrics.getTinfoil()) {
+      if (metrics.getTracking()) {
         metrics.track('yo famous:view', {
           packageName: this.pkg.name,
           packageVersion: this.pkg.version
