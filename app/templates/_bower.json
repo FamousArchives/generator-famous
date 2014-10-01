@@ -26,7 +26,7 @@
   "dependencies": {
     "requirejs": "~2.1.11",
     "almond": "~0.2.9",
-    "famous-polyfills": "git+https://github.com/Famous/polyfills.git#0.1.1",
-    "famous": "~0.2.2"
+    "famous-polyfills": "~0.3.0",
+    "famous": "~0.3.0-rc"
   }
 }
