@@ -27,6 +27,6 @@
     "requirejs": "~2.1.11",
     "almond": "~0.2.9",
     "famous-polyfills": "~0.3.0",
-    "famous": "~0.3.0-rc"
+    "famous": "~0.3.0"
   }
 }
