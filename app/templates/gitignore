@@ -9,6 +9,10 @@ Thumbs.db
 ##############
 node_modules
 
+# Logs #
+########
+*.log
+
 # Project Files #
 #################
 dist
