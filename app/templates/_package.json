@@ -32,7 +32,7 @@
     "grunt-contrib-uglify": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-eslint": "^2.0.0",
-    "grunt-jscs": "^0.8.1",
+    "grunt-jscs": "^1.0.0",
     "grunt-processhtml": "^0.3.3",
     "grunt-rev": "^0.1.0",
     "grunt-usemin": "^2.1.1",
