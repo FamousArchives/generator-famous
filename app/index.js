@@ -27,7 +27,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
       var bowerRC = JSON.stringify({
         'directory': 'app/lib',
         'scripts': {
-          'postinstall': 'grunt bower'
+          'postinstall': 'grunt bowerRequirejs'
         }
       });
       fs.writeFile(this.cwd + '/.bowerrc', bowerRC);
@@ -329,7 +329,7 @@ var FamousGenerator = yeoman.generators.Base.extend({
     this.src.copy('grunt/watch.js', this.cwd + '/grunt/watch.js');
     this.src.copy('grunt/connect.js', this.cwd + '/grunt/connect.js');
     this.src.copy('grunt/clean.js', this.cwd + '/grunt/clean.js');
-    this.src.copy('grunt/bower.js', this.cwd + '/grunt/bower.js');
+    this.src.copy('grunt/bowerRequirejs.js', this.cwd + '/grunt/bowerRequirejs.js');
     this.src.copy('grunt/rev.js', this.cwd + '/grunt/rev.js');
     this.src.copy('grunt/processhtml.js', this.cwd + '/grunt/processhtml.js');
     this.src.copy('grunt/useminPrepare.js', this.cwd + '/grunt/useminPrepare.js');

@@ -28,7 +28,7 @@ describe('famous generator', function () {
       'grunt/watch.js',
       'grunt/connect.js',
       'grunt/clean.js',
-      'grunt/bower.js',
+      'grunt/bowerRequirejs.js',
       'grunt/rev.js',
       'grunt/processhtml.js',
       'grunt/useminPrepare.js',
