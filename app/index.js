@@ -238,7 +238,8 @@ var FamousGenerator = yeoman.generators.Base.extend({
   dirCheck: function () {
     var done = this.async();
     var cwd = process.cwd();
-    var newDir = cwd + '/' + _.template(this.projectName);
+    var newDir = cwd + '/' + this.projectName;
+    
     var projectName = this.projectName;
     this.changedDir = false;
 
